@@ -1,0 +1,14 @@
+{
+  "nombre": "INSO",
+  "año": 3,
+  "alumnos": [
+    {
+      "nombre": "Juan",
+      "edad": 22
+    },
+    {
+      "nombre": "Pepe",
+      "edad": 23
+    }
+  ]
+}
