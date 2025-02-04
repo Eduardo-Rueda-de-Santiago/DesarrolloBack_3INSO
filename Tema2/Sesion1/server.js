@@ -1,11 +1,13 @@
 const express = require("express");
-
+require('dotenv').config();
 const app = express();
-
-const PORT = 3000;
 
 app.get('/', function (req, res) {
 	res.send("Received a GET query!");
 });
 
-app.listen(PORT);
+app.get('*', function (req, res) {
+	res.send("<h1>404! Search better!</h1>");
+});
+
+app.listen(process.env.PORT || 3000);
