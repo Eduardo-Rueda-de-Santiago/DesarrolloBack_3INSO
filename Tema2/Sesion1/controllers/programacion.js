@@ -1,26 +1,3 @@
-const express = require("express");
-const cursos = require("./cursos")
-
-require('dotenv').config();
-
-const app = express();
-
-// Routers
-app.get('/', function (req, res) {
-	res.send("Received a GET query!");
-});
-
-app.get('/api/cursos/programacion/:lenguaje', handleCursoProgramacion);
-
-app.get('/api/cursos/programacion/:lenguaje/:nivel', handleCursoProgramacionAdvanced);
-
-app.get('/api/cursos/matematicas/:tema', handleCursoMatematicas);
-
-app.get('/api/cursos/:curso', handleCursos);
-
-app.get('*', function (req, res) {
-	res.send("<h1>404! Search better!</h1>");
-});
 
 // Controllers
 function handleCursos(req, res) {
@@ -90,5 +67,3 @@ function filterProgrammingData(lenguaje, level){
 	return data;
 	
 }
-
-app.listen(process.env.PORT || 3000);
