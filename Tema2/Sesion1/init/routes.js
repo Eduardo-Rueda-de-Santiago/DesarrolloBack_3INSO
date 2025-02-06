@@ -11,11 +11,10 @@ router.get('/', function (req, res) {
 	res.send("Received a GET query!");
 });
 
-router.use('/api/cursos/programacion', routerMatematicas);
+router.use('/api/cursos/matematicas', routerMatematicas);
 router.use('/api/cursos/programacion', routerProgramacion);
 
 
-// app.get('/api/cursos/matematicas/:tema', handleCursoMatematicas);
 
 // app.get('/api/cursos/:curso', handleCursos);
 

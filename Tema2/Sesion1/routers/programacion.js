@@ -1,4 +1,5 @@
 const express = require("express");
+const controller = require("../controllers/programacion");
 
 const routerProgramacion = express.Router();
 
@@ -8,8 +9,8 @@ routerProgramacion.get("/", (req, res) => {
 
 });
 
-// routerProgramacion.get('/:lenguaje', handleCursoProgramacion);
+routerProgramacion.get('/:lenguaje', controller.handleCursoProgramacion);
 
-// routerProgramacion.get('/:lenguaje/:nivel', handleCursoProgramacionAdvanced);
+routerProgramacion.get('/:lenguaje/:nivel', controller.handleCursoProgramacionAdvanced);
 
 module.exports = routerProgramacion;

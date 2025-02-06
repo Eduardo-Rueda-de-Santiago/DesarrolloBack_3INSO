@@ -1,4 +1,5 @@
 const express = require("express");
+const controller = require("../controllers/matematicas");
 
 const routerMatematicas = express.Router();
 
@@ -8,8 +9,6 @@ routerMatematicas.get("/", (req, res) => {
 
 });
 
-// routerProgramacion.get('/:lenguaje', handleCursoProgramacion);
-
-// routerProgramacion.get('/:lenguaje/:nivel', handleCursoProgramacionAdvanced);
+routerMatematicas.get('/:tema', controller.handleCursoMatematicas);
 
 module.exports = routerMatematicas;

@@ -39,4 +39,4 @@ const infoCursos = {
 		}
 	]
 }
-module.exports.infoCursos = infoCursos;
+module.exports = infoCursos;
