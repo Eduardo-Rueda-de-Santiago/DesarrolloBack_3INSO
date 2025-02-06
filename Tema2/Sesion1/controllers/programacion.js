@@ -1,4 +1,4 @@
-const coursos = require("../data/cursos");
+const cursos = require("../data/cursos");
 
 // Controllers
 function handleCursos(req, res) {
@@ -15,20 +15,20 @@ function handleCursos(req, res) {
 
 }
 
-export function handleCursoProgramacion(req, res) {
+function handleCursoProgramacion(req, res) {
 	
 	const lenguaje = req.params.lenguaje;
 
 	const data = filterProgrammingData(lenguaje);
 
-	if (data.length > 0) {
-		return res.send(data);
-	}
+		if (data.length > 0) {
+			return res.send(data);
+		}
 	return res.status(404).send("No se encontró el curso de programación de " + lenguaje);
 
 }
 
-export function handleCursoProgramacionAdvanced(req, res){
+function handleCursoProgramacionAdvanced(req, res){
 
 	const lenguaje = req.params.lenguaje;
 
@@ -45,7 +45,7 @@ export function handleCursoProgramacionAdvanced(req, res){
 //Services
 function filterProgrammingData(lenguaje, level){
 
-	let data = cursos.infoCursos.programacion.filter(curso => curso.lenguaje === lenguaje);
+	let data = cursos.programacion.filter(curso => curso.lenguaje === lenguaje);
 
 	if (level) {
 		data = data.filter(curso => curso.nivel === level);
@@ -53,4 +53,9 @@ function filterProgrammingData(lenguaje, level){
 
 	return data;
 	
+}
+
+module.exports = {
+	handleCursoProgramacion,
+	handleCursoProgramacionAdvanced
 }
