@@ -1,3 +1,5 @@
+import MongooseService from "../services/mongoose";
+
 /**
  * Ejemplo de un controlador.
  * Las req y res no se pueden tipar, pero el resto si se debería. 'any' no clarifica los contenidos!
@@ -7,15 +9,20 @@
  * @param res Response
  * @returns La respuesta después de realizar las acciones.
  */
-function test(req: any, res: any) {
+async function test(req: any, res: any) {
 
 	// Siempre debe haber try catch para que aunque falle la operación el servidor no se caiga.
 	try {
 
+		// Crea un nuevo objeto de servicio.
+		const mongooseService = new MongooseService();
+
+		console.log(await mongooseService.test())
+
 		// Responde a la petición
 		return res.status(200).send({
 			text: "Thou arth seeing an example GET!",
-			fetchedData: exampleService.getUsefulArray()
+			fetchedData: true
 		});
 
 	} catch (error: any) {
