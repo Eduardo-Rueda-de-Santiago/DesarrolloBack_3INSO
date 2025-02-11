@@ -1,13 +1,24 @@
-import mongoose from "mongoose";
-export default class MongooseService{
+import UserModel from "../models/users";
+import { Model } from "mongoose";
+export default class MongooseService {
 
-	constructor(){
+	constructor() {
 
 	};
 
-	public async test():Promise<any>{
+	public test():  any{
 
-		return mongoose.connect(process.env.MONGO_DB_URI);
+		const newUser = new UserModel({
+			name:"Eduardo",
+			age:20,
+			password:"I'm a super safe password!"
+		});
+
+		newUser.save();
+		
+		return newUser;
+
 	}
+
 
 }

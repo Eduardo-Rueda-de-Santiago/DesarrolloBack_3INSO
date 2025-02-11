@@ -17,12 +17,12 @@ async function test(req: any, res: any) {
 		// Crea un nuevo objeto de servicio.
 		const mongooseService = new MongooseService();
 
-		console.log(await mongooseService.test())
+		const user = await mongooseService.test(); 
 
 		// Responde a la petición
 		return res.status(200).send({
 			text: "Thou arth seeing an example GET!",
-			fetchedData: true
+			fetchedData: user
 		});
 
 	} catch (error: any) {

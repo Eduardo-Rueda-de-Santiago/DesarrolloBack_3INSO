@@ -1,4 +1,4 @@
-import { createServer } from './init/server';
+import { createServer } from './config/server';
 import { config } from 'dotenv';
 
 /**
