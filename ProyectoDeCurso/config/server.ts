@@ -20,7 +20,7 @@ export function createServer(): any {
 		server.use(express.json());
 	
 		// Añade el objeto router que el servidor usará.
-		server.use(router);
+		server.use("/api",router);
 	
 		dbConnect();
 	

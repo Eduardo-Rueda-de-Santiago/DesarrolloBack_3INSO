@@ -12,7 +12,7 @@ import ExampleService from "../services/example";
  */
 async function getAllTracks(req: any, res: any) {
 
-	const data = await TracksModel.find();
+	const data = await TracksModel.find({});
 
 	return res.status(200).send(data);
 

@@ -1,0 +1,16 @@
+POST http://localhost:3000/api/tracks/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Track!",
+    "album": "Back attack!",
+    "artist": {
+        "name": "A programmer!",
+        "nickname": "Underpaid intern",
+        "nationality": "La la land!"
+    }
+}
+
+###
+
+GET http://localhost:3000/api/tracks HTTP/1.1
