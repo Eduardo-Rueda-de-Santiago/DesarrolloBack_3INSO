@@ -27,11 +27,22 @@ async function createTrack(req: any, res: any) {
 	return res.status(200).send(data);
 }
 
+async function getById(req: any, res: any) {
+
+	const id = req.params.id
+	
+	const data = await TracksModel.findById(id);
+
+	return res.status(200).send(data);
+
+}
+
 /**
  * Añadir aquí abajo los controladores para que se exporten bien!
  * Se puede poner un export al principio de la función del controlador 'export function nombreFuncion' pero entonces no te autocompletará en el router con el objeto controldor.
  */
 export default {
 	getAllTracks,
-	createTrack
+	createTrack,
+	getById
 };
