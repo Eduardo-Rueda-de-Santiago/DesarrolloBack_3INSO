@@ -1,6 +1,7 @@
 import express from "express";
-import { exampleRouter } from "../routers/example";
-import { mongooseRouter } from "../routers/mongoose";
+import { usersRouter } from "../routers/users";
+import { tracksRouter } from "../routers/tracks";
+import { storageRouter } from "../routers/storage";
 
 /**
  * Crea un objeto router.
@@ -10,8 +11,9 @@ const router = express.Router();
 /**
  * Asigna un subdominio del servidor a un router en concreto.
  */
-router.use('/example', exampleRouter);
-router.use('/mongoose', mongooseRouter);
+router.use('/users', usersRouter);
+router.use('/tracks', tracksRouter);
+router.use('/storage', storageRouter);
 
 /**
  * Lo que devuelve si todos los demás routers por encima no se encontró la dirección buscada.
