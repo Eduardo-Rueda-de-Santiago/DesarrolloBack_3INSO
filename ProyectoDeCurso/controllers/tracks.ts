@@ -1,3 +1,4 @@
+import TracksModel from "../models/nosql/tracks";
 import ExampleService from "../services/example";
 
 /**
@@ -9,29 +10,21 @@ import ExampleService from "../services/example";
  * @param res Response
  * @returns La respuesta después de realizar las acciones.
  */
-function test(req: any, res: any) {
+async function getAllTracks(req: any, res: any) {
 
-	// Siempre debe haber try catch para que aunque falle la operación el servidor no se caiga.
-	try {
+	const data = await TracksModel.find();
 
-		// Crea un nuevo objeto de servicio.
-		const exampleService = new ExampleService();
+	return res.status(200).send(data);
 
-		return res.status(200).send({
-			text: "Thou arth seeing an example!",
-			fetchedData: exampleService.getUsefulBool()
-		});
+}
 
+async function createTrack(req: any, res: any) {
 
-	} catch (error: any) {
+	const { body } = req;
 
-		// Al menos poned un pequeño mensaje de ejemplo para que se sepa de donde proviene el error.
-		return res.status(500).send({
-			alert: "The example PATCH controller failed!",
-			error: error.message
-		});
+	const data = await TracksModel.create(body);
 
-	}
+	return res.status(200).send(data);
 }
 
 /**
@@ -39,5 +32,6 @@ function test(req: any, res: any) {
  * Se puede poner un export al principio de la función del controlador 'export function nombreFuncion' pero entonces no te autocompletará en el router con el objeto controldor.
  */
 export default {
-	test,
+	getAllTracks,
+	createTrack
 };

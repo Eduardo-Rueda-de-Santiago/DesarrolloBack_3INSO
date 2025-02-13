@@ -7,7 +7,8 @@ import controller from "../controllers/tracks";
  */
 const tracksRouter = express.Router();
 
-tracksRouter.get("/test", controller.test);
+tracksRouter.post("/", controller.createTrack);
+tracksRouter.get("/", controller.getAllTracks);
 
 // Exporta el router una vez definidos todos los endpoints.s
 export { tracksRouter };
