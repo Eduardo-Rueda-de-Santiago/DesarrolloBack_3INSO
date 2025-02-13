@@ -1,4 +1,4 @@
-import MongooseService from "../services/mongoose";
+import ExampleService from "../services/example";
 
 /**
  * Ejemplo de un controlador.
@@ -9,32 +9,29 @@ import MongooseService from "../services/mongoose";
  * @param res Response
  * @returns La respuesta después de realizar las acciones.
  */
-async function test(req: any, res: any) {
+function test(req: any, res: any) {
 
 	// Siempre debe haber try catch para que aunque falle la operación el servidor no se caiga.
 	try {
 
 		// Crea un nuevo objeto de servicio.
-		const mongooseService = new MongooseService();
+		const exampleService = new ExampleService();
 
-		const user = await mongooseService.test(); 
-
-		// Responde a la petición
 		return res.status(200).send({
-			text: "Thou arth seeing an example GET!",
-			fetchedData: user
+			text: "Thou arth seeing an example!",
+			fetchedData: exampleService.getUsefulBool()
 		});
+
 
 	} catch (error: any) {
 
 		// Al menos poned un pequeño mensaje de ejemplo para que se sepa de donde proviene el error.
 		return res.status(500).send({
-			alert: "The example GET controller failed!",
+			alert: "The example PATCH controller failed!",
 			error: error.message
 		});
 
 	}
-
 }
 
 /**
@@ -42,5 +39,5 @@ async function test(req: any, res: any) {
  * Se puede poner un export al principio de la función del controlador 'export function nombreFuncion' pero entonces no te autocompletará en el router con el objeto controldor.
  */
 export default {
-	test
+	test,
 };

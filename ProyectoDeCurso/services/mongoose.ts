@@ -1,4 +1,4 @@
-import UserModel from "../models/users";
+import UserModel from "../models/nosql/users";
 import { Model } from "mongoose";
 export default class MongooseService {
 
