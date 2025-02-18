@@ -15,21 +15,24 @@ export function createServer(): any {
 
 		// Control de accesos al servidor, aquí irian listas de IPs o dominions, por ahora en blanco.
 		server.use(cors());
-	
+
 		// Permite tratar los cuerpos de las requests como si fueran jsons.
 		server.use(express.json());
-	
+
 		// Añade el objeto router que el servidor usará.
-		server.use("/api",router);
-	
+		server.use("/api", router);
+
+		// Definir donde se ponen los ficheros estáticos
+		server.use(express.static("storage"));
+
 		dbConnect();
-	
+
 		return server;
 
 	} catch (error) {
 
 		console.log("Error creating server");
-		
+
 	}
 
 }

@@ -1,3 +1,4 @@
+import StorageModel from "../models/nosql/storage";
 import ExampleService from "../services/example";
 
 /**
@@ -34,10 +35,33 @@ function test(req: any, res: any) {
 	}
 }
 
+async function createItem(req: any, res: any) {
+
+	try {
+
+		const { body, file } = req;
+
+		console.log(file)
+		const fileData = {
+			filename: file.filename,
+			url: process.env.PUBLIC_URL
+		}
+
+		const data = await StorageModel.create(fileData);
+
+		return res.send(data);
+
+	} catch (error: any) {
+
+	}
+
+}
+
 /**
  * Añadir aquí abajo los controladores para que se exporten bien!
  * Se puede poner un export al principio de la función del controlador 'export function nombreFuncion' pero entonces no te autocompletará en el router con el objeto controldor.
  */
 export default {
 	test,
+	createItem
 };
