@@ -41,7 +41,6 @@ async function createItem(req: any, res: any) {
 
 		const { body, file } = req;
 
-		console.log(file)
 		const fileData = {
 			filename: file.filename,
 			url: process.env.PUBLIC_URL
