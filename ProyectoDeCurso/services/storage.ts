@@ -12,6 +12,10 @@ const storage = multer.diskStorage({
 		callback(null, filename)
 	}
 })
-const uploadMiddleware = multer({ storage }) //Middleware entre la ruta y el controlador
 
-export default uploadMiddleware;
+const memory = multer.memoryStorage();
+
+const uploadMiddleware = multer({ storage }) //Middleware entre la ruta y el controlador
+const uploadMiddlewareMemory = multer({ storage: memory });
+
+export default {uploadMiddleware, uploadMiddlewareMemory};

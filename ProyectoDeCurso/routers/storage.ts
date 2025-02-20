@@ -1,6 +1,6 @@
 import express from "express";
 import controller from "../controllers/storage";
-import uploadMiddleware from "../services/storage";
+import storage from "../services/storage";
 
 /**
  * Crea un objeto router.
@@ -9,7 +9,9 @@ const storageRouter = express.Router();
 
 storageRouter.get("/test", controller.test);
  
-storageRouter.post("/", uploadMiddleware.single("image"), controller.createItem);
+storageRouter.post("/", storage.uploadMiddleware.single("image"), controller.createItem);
+
+storageRouter.patch("/", storage.uploadMiddlewareMemory.single("image"), controller.updateImage);
 
 // Exporta el router una vez definidos todos los endpoints.s
 export { storageRouter };

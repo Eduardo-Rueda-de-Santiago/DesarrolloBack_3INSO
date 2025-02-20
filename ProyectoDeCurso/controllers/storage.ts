@@ -1,5 +1,7 @@
 import StorageModel from "../models/nosql/storage";
+import UserModel from "../models/nosql/users";
 import ExampleService from "../services/example";
+import uploadToPinata from "../services/handleUploadIPFS";
 
 /**
  * Ejemplo de un controlador.
@@ -56,11 +58,29 @@ async function createItem(req: any, res: any) {
 
 }
 
+async function updateImage(req, res) {
+	try {
+		const id = req.params.id
+		const fileBuffer = req.file.buffer
+		const fileName = req.file.originalname
+		const pinataResponse = await uploadToPinata(fileBuffer, fileName)
+		const ipfsFile = pinataResponse.IpfsHash
+		const ipfs = `https://${process.env.PINATA_GATEWAY_URL}/ipfs/${ipfsFile}`
+		const data = await UserModel.findOneAndUpdate({ _id: id }, { image: ipfs }, { new: true })
+		res.send(data)
+	} catch (err) {
+		console.log(err)
+		res.status(500).send("ERROR_UPLOAD_COMPANY_IMAGE")
+		//handleHttpError(res, "ERROR_UPLOAD_COMPANY_IMAGE")
+	}
+}
+
 /**
  * Añadir aquí abajo los controladores para que se exporten bien!
  * Se puede poner un export al principio de la función del controlador 'export function nombreFuncion' pero entonces no te autocompletará en el router con el objeto controldor.
  */
 export default {
 	test,
-	createItem
+	createItem,
+	updateImage
 };
