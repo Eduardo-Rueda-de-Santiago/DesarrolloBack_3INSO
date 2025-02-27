@@ -1,5 +1,6 @@
 import TracksModel from "../models/nosql/tracks";
 import ExampleService from "../services/example";
+import { matchedData } from "express-validator";
 
 /**
  * Ejemplo de un controlador.
@@ -29,7 +30,7 @@ async function createTrack(req: any, res: any) {
 
 async function getById(req: any, res: any) {
 
-	const id = req.params.id
+	const {id} = matchedData(req);
 	
 	const data = await TracksModel.findById(id);
 
