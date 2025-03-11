@@ -49,7 +49,6 @@ export default class UserService {
 
 		try {
 
-			console.log("Datos usuario", userData)
 			// Crea el usuario
 			const user = await UserModel.create(userData);
 
