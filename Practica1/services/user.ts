@@ -1,5 +1,5 @@
 import { UserInterface } from "../interfaces/user";
-import UserModel from "../models/user";
+import UserModel from "../models/nosql/user";
 
 /**
  * Servicio del usuario.

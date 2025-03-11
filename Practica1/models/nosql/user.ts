@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import AddressInterface from "../interfaces/address";
+import AddressSubmodel from "./submodels/address";
 
 /**
  * Crear el esquema del usuario
@@ -43,9 +43,7 @@ const UserSchema = new Schema(
 			enum: ["guest", "user", "admin"]
 		},
 
-		address: {
-			type: AddressInterface
-		},
+		address: AddressSubmodel,
 
 		company: {
 			name: {
@@ -55,7 +53,7 @@ const UserSchema = new Schema(
 				type: Schema.Types.Number,
 				unique: true
 			},
-			address: AddressModel,
+			address: AddressSubmodel,
 		}
 
 	},
