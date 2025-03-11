@@ -1,6 +1,11 @@
+// External libs
 import express from "express";
 import swaggerUi from 'swagger-ui-express';
+
+// Internal files
 import swaggerDocs from "./swagger";
+import userRouter from "../routers/user";
+
 
 /**
  * Crea un objeto router.
@@ -10,7 +15,7 @@ const router = express.Router();
 /**
  * Asigna un subdominio del servidor a un router en concreto.
  */
-// router.use('/api/user', userRouter);
+router.use('/api/user', userRouter);
 // router.use('/api/member', memberRouter);
 // router.use('/api/group', groupRouter);
 // router.use('/api/debug', debugRouter);
