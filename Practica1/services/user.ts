@@ -1,5 +1,5 @@
-import UserInterface from "../interfaces/user";
-import UserModel from "../models/users";
+import { UserInterface } from "../interfaces/user";
+import UserModel from "../models/user";
 
 /**
  * Servicio del usuario.
