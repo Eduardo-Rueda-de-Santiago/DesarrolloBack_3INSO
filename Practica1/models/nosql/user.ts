@@ -31,7 +31,6 @@ const UserSchema = new Schema(
 
 		nif: {
 			type: Schema.Types.String,
-			unique: true
 		},
 
 		validationDate: {
@@ -51,7 +50,6 @@ const UserSchema = new Schema(
 			},
 			cif: {
 				type: Schema.Types.Number,
-				unique: true
 			},
 			address: AddressSubmodel,
 		}

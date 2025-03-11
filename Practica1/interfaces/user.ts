@@ -5,7 +5,7 @@ export interface UserInterface {
 
 	email: string,
 	password: string,
-	verificationCode: number,
+	verificationCode?: number,
 	name?: string,
 	surname?: string,
 	nif?: string,

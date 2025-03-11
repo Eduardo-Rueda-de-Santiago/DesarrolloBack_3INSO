@@ -1,6 +1,7 @@
 import UserService from "../services/user";
 import CypherService from "../services/cypher";
 import { matchedData } from "express-validator";
+import { UserInterface } from "../interfaces/user";
 
 export async function registerUser(req: any, res: any) {
 
@@ -11,7 +12,7 @@ export async function registerUser(req: any, res: any) {
 		const cypherService: CypherService = new CypherService();
 
 		// Extra los datos del cuerpo.
-		const { email, password,hone } = matchedData(req);
+		const { email, password } = matchedData(req);
 
 		// Encripta la contraseña
 		const hashedPassword: string = await cypherService.encryptString(password);
@@ -19,13 +20,13 @@ export async function registerUser(req: any, res: any) {
 		// Formatea los datos en una interfaz de datos de usuario.
 		const userData: UserInterface = {
 			email: email,
-			password: hashedPassword,
-			phone: phone
+			password: hashedPassword
 		}
 
 		// Crea el objeto.
 		const userObject = await userService.createUser(userData);
-		res.status(200).send(await new UserService().createUser({}))
+
+		res.status(200).send(userObject);
 
 	} catch (error: any) {
 

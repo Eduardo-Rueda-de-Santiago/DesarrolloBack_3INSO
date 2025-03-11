@@ -1,4 +1,4 @@
-import { UserInterface } from "../interfaces/user";
+import { UserInterface, UserMongoInterface } from "../interfaces/user";
 import UserModel from "../models/nosql/user";
 
 /**
@@ -45,10 +45,11 @@ export default class UserService {
 	 * @param userData Datos del usuario que se quiere crear.
 	 * @returns El objeto del usaurio creado en la base de datos.
 	 */
-	public async createUser(userData: UserInterface) {
+	public async createUser(userData: UserInterface): Promise<UserMongoInterface> {
 
 		try {
 
+			console.log("Datos usuario", userData)
 			// Crea el usuario
 			const user = await UserModel.create(userData);
 
@@ -69,12 +70,12 @@ export default class UserService {
 	 * @param userId Id of the user
 	 * @returns The object of the user
 	 */
-	public async getUserById(userId: string) {
+	public async getUserById(userId: string): Promise<UserMongoInterface> {
 
 		try {
 
 			// Busca un usuario según su id.
-			return await UserModel.findById(userId);
+			return await UserModel.findById<UserMongoInterface>(userId);
 
 		} catch (error) {
 
