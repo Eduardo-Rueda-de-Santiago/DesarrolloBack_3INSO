@@ -13,5 +13,5 @@ storageRouter.post("/", storage.uploadMiddleware.single("image"), controller.cre
 
 storageRouter.patch("/", storage.uploadMiddlewareMemory.single("image"), controller.updateImage);
 
-// Exporta el router una vez definidos todos los endpoints.s
+// Exporta el router una vez definidos todos los endpoints.
 export { storageRouter };
