@@ -11,23 +11,21 @@ export default class MailerService {
 		this.transporter = nodemailer.createTransport({
 			host: "smtp.mailersend.net",
 			port: 587,
+			secure:false,
 			auth: {
-				user: "MS_kjTeZ4@trial-jy7zpl92k9p45vx6.mlsender.net",
-				pass: "mssp.adWhtJm.neqvygm9d5zl0p7w.pfu8nQO",
+				user: process.env.SMPTP_USER,
+				pass: process.env.SMPTP_PASSWORD,
 			}
 		});
 	}
 
 	public sendVerificationCodeEmail(receiver: string, code: number): void {
 		this.transporter.sendMail({
-			from: '"Eduardo testing api" <marquise.wisozk@ethereal.email>',
+			from: process.env.SMTP_FROM,
 			to: receiver,
 			subject: "Testing this works!",
 			text: `Your validation code is ${code}`,
 		})
-			.then((res) => {
-				console.log(res)
-			})
 			.catch((error) => {
 				console.error(error)
 			})

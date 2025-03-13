@@ -44,7 +44,6 @@ export async function registerUser(req: any, res: any) {
 		// Obten la validación del objeto
 		userService.getUserValidationData(userObject._id)
 			.then((userValidationData: UserMongoInterface) => {
-				console.log("Sending email", userValidationData)
 				mailerService.sendVerificationCodeEmail(userValidationData.email, userValidationData.validationData.validationCode);
 			})
 			.catch((error => {

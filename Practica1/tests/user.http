@@ -4,6 +4,6 @@ POST {{url}}/api/user/register
 Content-Type: application/json
 
 {
-    "email": "eduardo.rueda@live.u-tad.com",
+    "email": "eduardoruedadesantiago@gmail.com",
 	"password":"12341234Abc$"
 }
