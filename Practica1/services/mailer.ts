@@ -19,6 +19,11 @@ export default class MailerService {
 		});
 	}
 
+	/**
+	 * Sends the verification code email to a user.
+	 * @param receiver The user to receive the verification code.
+	 * @param code The code to verify
+	 */
 	public sendVerificationCodeEmail(receiver: string, code: number): void {
 		this.transporter.sendMail({
 			from: process.env.SMTP_FROM,
