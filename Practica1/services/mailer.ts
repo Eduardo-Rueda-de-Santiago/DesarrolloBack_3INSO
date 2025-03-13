@@ -9,11 +9,11 @@ export default class MailerService {
 
 	constructor() {
 		this.transporter = nodemailer.createTransport({
-			host: 'smtp.ethereal.email',
+			host: "smtp.mailersend.net",
 			port: 587,
 			auth: {
-				user: 'marquise.wisozk@ethereal.email',
-				pass: 'jya7a5YYHrS4GRmPet'
+				user: "MS_kjTeZ4@trial-jy7zpl92k9p45vx6.mlsender.net",
+				pass: "mssp.adWhtJm.neqvygm9d5zl0p7w.pfu8nQO",
 			}
 		});
 	}
@@ -27,6 +27,9 @@ export default class MailerService {
 		})
 			.then((res) => {
 				console.log(res)
+			})
+			.catch((error) => {
+				console.error(error)
 			})
 	}
 }

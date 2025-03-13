@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { UserMongoInterface } from "../interfaces/user";
 
 /**
  * Servicio para realizar las operaciones de generación/verificación de tokens.
@@ -17,13 +18,13 @@ export default class JsonWebTokenService {
 
 	/**
 	 * Generate a token
-	 * @param tokenData The object to add to the token.
+	 * @param userData The user data to generate a token
 	 * @returns A JWT token.
 	 */
-	generateToken(tokenData: Object): string {
+	generateToken(userData: UserMongoInterface): string {
 
 		try {
-			const token = jwt.sign(tokenData, this.tokenSecret, {
+			const token = jwt.sign({ id: userData._id }, this.tokenSecret, {
 				expiresIn: this.tokenDuration,
 			});
 
