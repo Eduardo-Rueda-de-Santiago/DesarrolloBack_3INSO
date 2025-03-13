@@ -1,5 +1,6 @@
 import { Schema, model } from "mongoose";
 import AddressSubmodel from "./submodels/address";
+import ValidationSubmodel from "./submodels/validation";
 
 /**
  * Crear el esquema del usuario
@@ -17,10 +18,6 @@ const UserSchema = new Schema(
 			select: false
 		},
 
-		verificationCode: {
-			type: Schema.Types.Number
-		},
-
 		name: {
 			type: Schema.Types.String
 		},
@@ -33,16 +30,14 @@ const UserSchema = new Schema(
 			type: Schema.Types.String,
 		},
 
-		validationDate: {
-			type: Schema.Types.Date
-		},
-
 		role: {
 			type: Schema.Types.String,
 			enum: ["guest", "user", "admin"]
 		},
 
 		address: AddressSubmodel,
+
+		validation:ValidationSubmodel,
 
 		company: {
 			name: {

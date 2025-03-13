@@ -22,7 +22,8 @@
     "mongoose": "^8.12.1",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-dist": "^5.19.0",
-    "swagger-ui-express": "^5.0.1"
+    "swagger-ui-express": "^5.0.1",
+    "unique-random": "^4.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

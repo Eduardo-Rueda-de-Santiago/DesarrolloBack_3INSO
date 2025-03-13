@@ -1,24 +1,24 @@
 import AddressInterface from "./address";
 import MongodbObject from "./mongodbObject";
+import ValidationData from "./validation";
 
 export interface UserInterface {
 
+	// Necesary
 	email: string,
 	password: string,
-	verificationCode?: number,
+	validationData: ValidationData
+
+	// Optional
 	name?: string,
 	surname?: string,
 	nif?: string,
-	validationDate?: Date,
 	role?: string,
 	address?: AddressInterface,
-	
 	company?: {
-	
 		name: string,
 		cif: string,
 		address?: AddressInterface
-	
 	}
 
 }
