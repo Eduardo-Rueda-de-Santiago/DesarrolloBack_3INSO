@@ -1,4 +1,4 @@
-import { UserInterface, UserMongoInterface } from "../interfaces/user";
+import { UserFullDataInterface, UserMongoInterface } from "../interfaces/user";
 import UserModel from "../models/nosql/user";
 
 /**
@@ -45,7 +45,7 @@ export default class UserService {
 	 * @param userData Datos del usuario que se quiere crear.
 	 * @returns El objeto del usaurio creado en la base de datos.
 	 */
-	public async createUser(userData: UserInterface): Promise<UserMongoInterface> {
+	public async createUser(userData: UserFullDataInterface): Promise<UserMongoInterface> {
 
 		try {
 
@@ -109,7 +109,7 @@ export default class UserService {
 	 * @param email Email of the user
 	 * @returns The object of the user with the fields of email and password
 	 */
-	public async getUserAuthData(email: string) {
+	public async getUserAuthData(email: string): Promise<UserMongoInterface> {
 
 		try {
 
@@ -124,13 +124,13 @@ export default class UserService {
 		}
 	}
 
-	
+
 	/**
 	 * Get an user object with the validation data.
 	 * @param userId Id of the user
 	 * @returns The object of the user with the fields of email and validation data
 	 */
-	public async getUserValidationData(userId: string) {
+	public async getUserValidationData(userId: string): Promise<UserMongoInterface> {
 
 		try {
 

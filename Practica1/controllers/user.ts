@@ -1,11 +1,16 @@
 import UserService from "../services/user";
 import CypherService from "../services/cypher";
 import { matchedData } from "express-validator";
-import { UserInterface, UserMongoInterface } from "../interfaces/user";
+import { UserBasicDataInterface, UserFullDataInterface, UserMongoInterface } from "../interfaces/user";
 import generateValidationCode from "../services/validationCode";
 import MailerService from "../services/mailer";
 import JsonWebTokenService from "../services/jsonWebToken";
 
+/**
+ * Registra un usuario.
+ * @param req Request
+ * @param res response
+ */
 export async function registerUser(req: any, res: any) {
 
 	try {
@@ -23,7 +28,7 @@ export async function registerUser(req: any, res: any) {
 		const hashedPassword: string = await cypherService.encryptString(password);
 
 		// Formatea los datos en una interfaz de datos de usuario.
-		const userData: UserInterface = {
+		const userData: UserFullDataInterface = {
 			email: email,
 			password: hashedPassword,
 			validationData: {
@@ -53,5 +58,80 @@ export async function registerUser(req: any, res: any) {
 	} catch (error: any) {
 
 	}
+
+}
+
+/**
+ * Realiza el login.
+ * 
+ * @param req Request
+ * @param res Response
+ * @returns Token de autenticación para el usuario.
+ */
+export async function loginUser(req: any, res: any) {
+
+	try {
+
+		// Crea los servicios
+		const jsonWebTokenService: JsonWebTokenService = new JsonWebTokenService();
+
+		// Extra los datos del cuerpo.
+		const { email, password } = matchedData(req);
+
+		// Formatea los datos en una interfaz de datos de usuario.
+		const userData: UserBasicDataInterface = {
+			email,
+			password
+		}
+
+		// Comrprueba que los datos de autenticación sean correctos.
+		const userFullData: UserMongoInterface = await checkAuthData(userData);
+
+		// Genera el token del usuario.
+		const token = jsonWebTokenService.generateToken(userFullData);
+
+		// Devuelve el objeto creado.
+		res.status(201).send({ token: token, user: userFullData });
+
+	} catch (error: any) {
+
+		console.error(error);
+
+		return res.status(500).send({
+			alert: "The operation to log in failed!",
+			description: error.message
+		});
+
+	}
+
+}
+
+/**
+ * Comprueba que los datos de autenticación del usuario sean correctos.
+ * @param userData Los datos del usuario
+ * @return El usuario con todos sus datos su la autenticación es correcta.
+ */
+async function checkAuthData(userData: UserBasicDataInterface): Promise<any> {
+
+	// Crea los servicios
+	const userService: UserService = new UserService();
+	const cypherService: CypherService = new CypherService();
+
+	// Obtener el usuario.
+	const userAuthData = await userService.getUserAuthData(userData.email);
+
+	// Comprueba que el usuario existiese en el sistema.
+	if (!userAuthData) {
+		throw new Error("No existe un usuario con este email!")
+	}
+
+	// Comprueba que la contraseña sea correcta.
+	const passwordMatch: boolean = await cypherService.checkIfStringMatchesHash(userData.password, userAuthData.password);
+
+	if (!passwordMatch) {
+		throw new Error("La contraseña no es correcta!")
+	}
+
+	return await userService.getUserById(userAuthData._id.toString());
 
 }

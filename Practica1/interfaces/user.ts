@@ -2,14 +2,13 @@ import AddressInterface from "./address";
 import MongodbObject from "./mongodbObject";
 import ValidationData from "./validation";
 
-export interface UserInterface {
-
-	// Necesary
+export interface UserBasicDataInterface {
 	email: string,
-	password: string,
-	validationData: ValidationData
+	password: string
+}
+export interface UserFullDataInterface extends UserBasicDataInterface {
 
-	// Optional
+	validationData: ValidationData
 	name?: string,
 	surname?: string,
 	nif?: string,
@@ -23,6 +22,6 @@ export interface UserInterface {
 
 }
 
-export interface UserMongoInterface extends UserInterface, MongodbObject {
+export interface UserMongoInterface extends UserFullDataInterface, MongodbObject {
 
 }

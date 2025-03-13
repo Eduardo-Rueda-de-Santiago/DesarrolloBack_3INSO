@@ -10,4 +10,11 @@ userRouter.post(
 	controller.registerUser
 );
 
+userRouter.post(
+	"/login",
+	validator.loginUser,
+	controller.loginUser
+);
+
+
 export default userRouter;
