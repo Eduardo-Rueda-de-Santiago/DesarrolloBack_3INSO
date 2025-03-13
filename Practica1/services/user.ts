@@ -84,25 +84,25 @@ export default class UserService {
 		}
 	}
 
-	/**
-	 * Get an user object from the database by email.
-	 * @param email Email of the user
-	 * @returns The object of the user
-	 */
-	public async getUserByEmail(email: string): Promise<UserMongoInterface> {
+	// /**
+	//  * Get an user object from the database by email.
+	//  * @param email Email of the user
+	//  * @returns The object of the user
+	//  */
+	// public async getUserByEmail(email: string): Promise<UserMongoInterface> {
 
-		try {
+	// 	try {
 
-			// Busca un usuario según su email.
-			return await UserModel.findOne<UserMongoInterface>({ email: email });
+	// 		// Busca un usuario según su email.
+	// 		return await UserModel.findOne<UserMongoInterface>({ email: email });
 
-		} catch (error) {
+	// 	} catch (error) {
 
-			console.error(error)
-			throw new Error("Error looking up user by email");
+	// 		console.error(error)
+	// 		throw new Error("Error looking up user by email");
 
-		}
-	}
+	// 	}
+	// }
 
 	/**
 	 * Get an user object auth data from the database by email.
@@ -124,49 +124,70 @@ export default class UserService {
 		}
 	}
 
+	
 	/**
-	 * Updates the user with a given id, changing the given data.
-	 * @param userId The Id of the user to update
-	 * @param userData The data to update
-	 * @returns The updated object of the user
+	 * Get an user object with the validation data.
+	 * @param id Email of the user
+	 * @returns The object of the user with the fields of email and password
 	 */
-	public async updateUserById(userId: string, userData: UserInterface): Promise<UserMongoInterface> {
+	public async getUserValidationData(userId: string) {
 
 		try {
 
-			// Actualiza el usuario
-			await UserModel.updateOne({ _id: userId }, userData);
-
-			// Una vez actualizado lo vuelve a buscar para obtener los nuevos datos (mongoose no deveulve el objeto actualizado).
-			return this.getUserById(userId);
+			// Busca un usuario según su email. Adicionalmente, selecciona su contraseña de manera explicita.
+			return await UserModel.findOne<UserMongoInterface>({ email: email }).select("email +password");
 
 		} catch (error) {
 
 			console.error(error)
-			throw new Error("Error looking up user by id");
+			throw new Error("Error getting user auth data.");
 
 		}
 	}
 
+	// /**
+	//  * Updates the user with a given id, changing the given data.
+	//  * @param userId The Id of the user to update
+	//  * @param userData The data to update
+	//  * @returns The updated object of the user
+	//  */
+	// public async updateUserById(userId: string, userData: UserInterface): Promise<UserMongoInterface> {
 
-	/**
-	 * Deletes a user with the given ID.
-	 * @param userId User Id
-	 * @returns The object of teh user that has been deleted.
-	 */
-	public async deleteUserById(userId: string) {
+	// 	try {
 
-		try {
+	// 		// Actualiza el usuario
+	// 		await UserModel.updateOne({ _id: userId }, userData);
 
-			// Borra el usuario.
-			return await UserModel.findByIdAndDelete(userId);
+	// 		// Una vez actualizado lo vuelve a buscar para obtener los nuevos datos (mongoose no deveulve el objeto actualizado).
+	// 		return this.getUserById(userId);
 
-		} catch (error) {
+	// 	} catch (error) {
 
-			console.error(error)
-			throw new Error("Error deleting user by id");
+	// 		console.error(error)
+	// 		throw new Error("Error looking up user by id");
 
-		}
-	}
+	// 	}
+	// }
+
+
+	// /**
+	//  * Deletes a user with the given ID.
+	//  * @param userId User Id
+	//  * @returns The object of teh user that has been deleted.
+	//  */
+	// public async deleteUserById(userId: string) {
+
+	// 	try {
+
+	// 		// Borra el usuario.
+	// 		return await UserModel.findByIdAndDelete(userId);
+
+	// 	} catch (error) {
+
+	// 		console.error(error)
+	// 		throw new Error("Error deleting user by id");
+
+	// 	}
+	// }
 
 }
