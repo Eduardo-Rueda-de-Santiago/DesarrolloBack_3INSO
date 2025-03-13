@@ -89,12 +89,12 @@ export default class UserService {
 	 * @param email Email of the user
 	 * @returns The object of the user
 	 */
-	public async getUserByEmail(email: string) {
+	public async getUserByEmail(email: string): Promise<UserMongoInterface> {
 
 		try {
 
 			// Busca un usuario según su email.
-			return await UserModel.findOne({ email: email });
+			return await UserModel.findOne<UserMongoInterface>({ email: email });
 
 		} catch (error) {
 
@@ -114,7 +114,7 @@ export default class UserService {
 		try {
 
 			// Busca un usuario según su email. Adicionalmente, selecciona su contraseña de manera explicita.
-			return await UserModel.findOne({ email: email }).select("email +password");
+			return await UserModel.findOne<UserMongoInterface>({ email: email }).select("email +password");
 
 		} catch (error) {
 
@@ -130,7 +130,7 @@ export default class UserService {
 	 * @param userData The data to update
 	 * @returns The updated object of the user
 	 */
-	public async updateUserById(userId: string, userData: UserInterface) {
+	public async updateUserById(userId: string, userData: UserInterface): Promise<UserMongoInterface> {
 
 		try {
 
