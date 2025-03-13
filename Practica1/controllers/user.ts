@@ -1,8 +1,9 @@
 import UserService from "../services/user";
 import CypherService from "../services/cypher";
 import { matchedData } from "express-validator";
-import { UserInterface } from "../interfaces/user";
+import { UserInterface, UserMongoInterface } from "../interfaces/user";
 import generateValidationCode from "../services/validationCode";
+import MailerService from "../services/mailer";
 
 export async function registerUser(req: any, res: any) {
 
@@ -11,6 +12,7 @@ export async function registerUser(req: any, res: any) {
 
 		const userService: UserService = new UserService();
 		const cypherService: CypherService = new CypherService();
+		const mailerService: MailerService = new MailerService();
 
 		// Extra los datos del cuerpo.
 		const { email, password } = matchedData(req);
@@ -31,7 +33,18 @@ export async function registerUser(req: any, res: any) {
 		// Crea el objeto.
 		const userObject = await userService.createUser(userData);
 
+		// Manda la respuesta
 		res.status(200).send(userObject);
+
+		// Obten la validación del objeto
+		userService.getUserValidationData(userObject._id)
+			.then((userValidationData: UserMongoInterface) => {
+				console.log("Sending email", userValidationData)
+				mailerService.sendVerificationCodeEmail(userValidationData.email, userValidationData.validationData.validationCode);
+			})
+			.catch((error => {
+
+			}))
 
 	} catch (error: any) {
 

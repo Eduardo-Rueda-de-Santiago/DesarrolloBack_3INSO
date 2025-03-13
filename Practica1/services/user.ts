@@ -127,15 +127,15 @@ export default class UserService {
 	
 	/**
 	 * Get an user object with the validation data.
-	 * @param id Email of the user
-	 * @returns The object of the user with the fields of email and password
+	 * @param userId Id of the user
+	 * @returns The object of the user with the fields of email and validation data
 	 */
 	public async getUserValidationData(userId: string) {
 
 		try {
 
-			// Busca un usuario según su email. Adicionalmente, selecciona su contraseña de manera explicita.
-			return await UserModel.findOne<UserMongoInterface>({ email: email }).select("email +password");
+			// Busca un usuario según su id. Adicionalmente, selecciona sus datos de validación de manera explicita.
+			return await UserModel.findById<UserMongoInterface>(userId).select("email +validationData");
 
 		} catch (error) {
 

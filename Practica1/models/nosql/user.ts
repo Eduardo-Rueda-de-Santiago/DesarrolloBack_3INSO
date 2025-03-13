@@ -38,8 +38,8 @@ const UserSchema = new Schema(
 		address: AddressSubmodel,
 
 		validationData: {
-			type: new Schema({ ...ValidationSubmodel }, { _id: false, select: false }
-			)
+			type: new Schema({ ...ValidationSubmodel }, { _id: false }),
+			select: false
 		},
 
 		company: {
