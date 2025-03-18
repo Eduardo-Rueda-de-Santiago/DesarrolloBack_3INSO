@@ -196,6 +196,7 @@ export async function editUserCompany(req: any, res: any) {
 export async function editUserLogo(req: any, res: any) {
 	try {
 
+		// Tiene que ir el logo a pinata?
 		res.status(501).send("Not yet implemented!");
 
 	} catch (error) {
@@ -205,9 +206,9 @@ export async function editUserLogo(req: any, res: any) {
 }
 
 /**
- * 
- * @param req 
- * @param res 
+ * Returns the full data of the user who made this request.
+ * @param req Request.
+ * @param res Response.
  */
 export async function getUserData(req: any, res: any) {
 	try {
@@ -221,9 +222,9 @@ export async function getUserData(req: any, res: any) {
 }
 
 /**
- * 
- * @param req 
- * @param res 
+ * Deletes the user who made this request.
+ * @param req Request.
+ * @param res Response.
  */
 export async function deleteUser(req: any, res: any) {
 	try {

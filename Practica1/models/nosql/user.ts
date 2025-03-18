@@ -1,4 +1,6 @@
 import { Schema, model } from "mongoose";
+import mongooseDelete from "mongoose-delete";
+
 import AddressSubmodel from "./submodels/address";
 import ValidationSubmodel from "./submodels/validation";
 
@@ -60,6 +62,9 @@ const UserSchema = new Schema(
 	}
 
 );
+
+// Sobreescribir el método de delete para hacer un soft delete.
+UserSchema.plugin(mongooseDelete, { overrideMethods: "all" })
 
 /**
  * Crear un modelo de mongoose.
