@@ -40,7 +40,7 @@ export async function registerUser(req: any, res: any) {
 		const userObject = await userService.createUser(userData);
 
 		// Crea un token.
-		const token = jsonWebTokenService.generateToken(userObject);
+		const token = jsonWebTokenService.generateToken({ id: userObject._id.toString() });
 
 		// Manda la respuesta
 		res.status(200).send({ userObject, token });
@@ -148,6 +148,8 @@ async function checkAuthData(userData: UserBasicDataInterface): Promise<any> {
 export async function recoverPassword(req: any, res: any) {
 	try {
 
+		res.status(501).send("Not yet implemented!");
+
 	} catch (error) {
 		console.log(error);
 		res.status(500).send(error)
@@ -161,6 +163,8 @@ export async function recoverPassword(req: any, res: any) {
  */
 export async function validateEmail(req: any, res: any) {
 	try {
+
+		res.status(501).send("Not yet implemented!");
 
 	} catch (error) {
 		console.log(error);
@@ -176,6 +180,8 @@ export async function validateEmail(req: any, res: any) {
 export async function editUserCompany(req: any, res: any) {
 	try {
 
+		res.status(501).send("Not yet implemented!");
+
 	} catch (error) {
 		console.log(error);
 		res.status(500).send(error)
@@ -190,6 +196,8 @@ export async function editUserCompany(req: any, res: any) {
 export async function editUserLogo(req: any, res: any) {
 	try {
 
+		res.status(501).send("Not yet implemented!");
+
 	} catch (error) {
 		console.log(error);
 		res.status(500).send(error)
@@ -203,6 +211,8 @@ export async function editUserLogo(req: any, res: any) {
  */
 export async function getUserData(req: any, res: any) {
 	try {
+
+		res.status(200).send(req.user);
 
 	} catch (error) {
 		console.log(error);
@@ -219,9 +229,12 @@ export async function deleteUser(req: any, res: any) {
 	try {
 
 		const { _id } = req.user._id
-		console.log(_id);
 
-		res.status(200).send(_id)
+		const userService: UserService = new UserService();
+
+		const user = await userService.deleteUserById(_id);
+
+		res.status(200).send(user);
 
 	} catch (error) {
 		console.log(error);

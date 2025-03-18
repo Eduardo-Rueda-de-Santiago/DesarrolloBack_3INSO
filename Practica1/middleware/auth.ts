@@ -29,7 +29,7 @@ export default async function auth(req: any, res: any, next: any) {
 
 		const userService: UserService = new UserService();
 
-		const user = await userService.getUserById(decoded.userId);
+		const user = await userService.getUserById(decoded.id);
 
 		if (!user) {
 			return res.status(401).json({ error: 'The user doesn\'t exist!' });
