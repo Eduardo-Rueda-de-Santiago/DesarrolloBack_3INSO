@@ -170,24 +170,24 @@ export default class UserService {
 	// }
 
 
-	// /**
-	//  * Deletes a user with the given ID.
-	//  * @param userId User Id
-	//  * @returns The object of teh user that has been deleted.
-	//  */
-	// public async deleteUserById(userId: string) {
+	/**
+	 * Deletes a user with the given ID.
+	 * @param userId User Id
+	 * @returns The object of teh user that has been deleted.
+	 */
+	public async deleteUserById(userId: string) {
 
-	// 	try {
+		try {
 
-	// 		// Borra el usuario.
-	// 		return await UserModel.findByIdAndDelete(userId);
+			// Borra el usuario.
+			return await UserModel.findByIdAndDelete(userId);
 
-	// 	} catch (error) {
+		} catch (error) {
 
-	// 		console.error(error)
-	// 		throw new Error("Error deleting user by id");
+			console.error(error)
+			throw new Error("Error deleting user by id");
 
-	// 	}
-	// }
+		}
+	}
 
 }

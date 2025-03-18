@@ -18,13 +18,13 @@ export default class JsonWebTokenService {
 
 	/**
 	 * Generate a token
-	 * @param userData The user data to generate a token
+	 * @param tokenData The data to inject in the token
 	 * @returns A JWT token.
 	 */
-	generateToken(userData: UserMongoInterface): string {
+	generateToken(tokenData: any): string {
 
 		try {
-			const token = jwt.sign({ id: userData._id }, this.tokenSecret, {
+			const token = jwt.sign(tokenData, this.tokenSecret, {
 				expiresIn: this.tokenDuration,
 			});
 

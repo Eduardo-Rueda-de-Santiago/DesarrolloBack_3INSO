@@ -1,4 +1,5 @@
 @url = http://localhost:3000
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDJjNTlkNTQ0NTkwODk0MjAyNTcwZiIsImlhdCI6MTc0MjI5NTQ3OSwiZXhwIjoxNzQyMjk5MDc5fQ.HdgniyUX_HUmeQajSfzFGlWV5e40bSobl0ffzXdNNUs
 
 POST {{url}}/api/user/register
 Content-Type: application/json
@@ -17,3 +18,9 @@ Content-Type: application/json
     "email": "eduardoruedadesantiago@gmail.com",
 	"password":"12341234Abc$"
 }
+
+### 
+
+DELETE  {{url}}/api/user/deleteUser
+Content-Type: application/json
+Authorization: Bearer {{token}}

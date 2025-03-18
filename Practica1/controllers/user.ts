@@ -74,20 +74,16 @@ export async function loginUser(req: any, res: any) {
 		// Crea los servicios
 		const jsonWebTokenService: JsonWebTokenService = new JsonWebTokenService();
 
-		// Extra los datos del cuerpo.
-		const { email, password } = matchedData(req);
-
 		// Formatea los datos en una interfaz de datos de usuario.
 		const userData: UserBasicDataInterface = {
-			email,
-			password
+			...matchedData(req)
 		}
 
 		// Comrprueba que los datos de autenticación sean correctos.
 		const userFullData: UserMongoInterface = await checkAuthData(userData);
 
 		// Genera el token del usuario.
-		const token = jsonWebTokenService.generateToken(userFullData);
+		const token = jsonWebTokenService.generateToken({ id: userFullData._id.toString() });
 
 		// Devuelve el objeto creado.
 		res.status(201).send({ token: token, user: userFullData });
@@ -221,6 +217,11 @@ export async function getUserData(req: any, res: any) {
  */
 export async function deleteUser(req: any, res: any) {
 	try {
+
+		const { _id } = req.user._id
+		console.log(_id);
+
+		res.status(200).send(_id)
 
 	} catch (error) {
 		console.log(error);
