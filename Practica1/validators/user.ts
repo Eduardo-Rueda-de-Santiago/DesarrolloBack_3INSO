@@ -13,7 +13,7 @@ export const registerUser = [
 		.isLength({ min: 8, max: 50 }).withMessage("La contraseña debe tener entre 8 y 50 caracteres."),
 
 	(req: any, res: any, next: any) => validateResults(req, res, next)
-	
+
 ];
 
 export const loginUser = [
@@ -25,6 +25,42 @@ export const loginUser = [
 	body("password")
 		.isString()
 		.isLength({ min: 8, max: 50 }).withMessage("La contraseña debe tener entre 8 y 50 caracteres."),
+
+	(req: any, res: any, next: any) => validateResults(req, res, next)
+
+]
+
+export const recoverPassword = [
+
+	(req: any, res: any, next: any) => validateResults(req, res, next)
+
+]
+
+export const validateEmail = [
+
+	(req: any, res: any, next: any) => validateResults(req, res, next)
+
+]
+
+export const editUserCompany = [
+
+	(req: any, res: any, next: any) => validateResults(req, res, next)
+
+]
+
+export const editUserLogo = [
+
+	(req: any, res: any, next: any) => validateResults(req, res, next)
+
+]
+
+export const getUserData = [
+
+	(req: any, res: any, next: any) => validateResults(req, res, next)
+
+]
+
+export const deleteUser = [
 
 	(req: any, res: any, next: any) => validateResults(req, res, next)
 
