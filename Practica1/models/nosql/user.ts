@@ -63,13 +63,13 @@ const UserSchema = new Schema(
 
 );
 
-// Sobreescribir el método de delete para hacer un soft delete.
-UserSchema.plugin(mongooseDelete, { overrideMethods: "all" })
-
 /**
  * Crear un modelo de mongoose.
  */
 const UserModel = model('User', UserSchema);
+
+// Sobreescribir el método de delete para hacer un soft delete.
+UserSchema.plugin(mongooseDelete, { overrideMethods: "all" })
 
 /**
  * Exportarlo.
