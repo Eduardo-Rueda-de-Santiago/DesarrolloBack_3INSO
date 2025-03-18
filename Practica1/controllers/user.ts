@@ -124,7 +124,7 @@ async function checkAuthData(userData: UserBasicDataInterface): Promise<any> {
 		throw new Error("No existe un usuario con este email!")
 	}
 
-	
+
 	// Obtener el usuario.
 	const userValidationData = await userService.getUserValidationData(userAuthData._id);
 
@@ -142,4 +142,88 @@ async function checkAuthData(userData: UserBasicDataInterface): Promise<any> {
 
 	return await userService.getUserById(userAuthData._id.toString());
 
+}
+
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+export async function recoverPassword(req: any, res: any) {
+	try {
+
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error)
+	}
+}
+
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+export async function validateEmail(req: any, res: any) {
+	try {
+
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error)
+	}
+}
+
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+export async function editUserCompany(req: any, res: any) {
+	try {
+
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error)
+	}
+}
+
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+export async function editUserLogo(req: any, res: any) {
+	try {
+
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error)
+	}
+}
+
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+export async function getUserData(req: any, res: any) {
+	try {
+
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error)
+	}
+}
+
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+export async function deleteUser(req: any, res: any) {
+	try {
+
+	} catch (error) {
+		console.log(error);
+		res.status(500).send(error)
+	}
 }

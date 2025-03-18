@@ -13,10 +13,14 @@ export default async function auth(req: any, res: any, next: any) {
 
 	try {
 
+		if (!req.header('Authorization')) {
+			throw new Error("No hay cabezera de autorización.");
+		}
+
 		const token = req.header('Authorization').split(" ").pop();
 
-		if (!token){
-			throw new Error("No hay token!");
+		if (!token) {
+			throw new Error("No hay token en la autorización!");
 		}
 
 		const jsonWebTokenService: JsonWebTokenService = new JsonWebTokenService();

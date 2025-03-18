@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as controller from "../controllers/user";
 import * as validator from "../validators/user";
+import auth from "../middleware/auth";
 
 const userRouter: Router = Router();
 
@@ -30,24 +31,28 @@ userRouter.patch(
 
 userRouter.patch(
 	"/editUserCompany",
+	auth,
 	validator.editUserCompany,
 	controller.editUserCompany
 );
 
 userRouter.patch(
 	"/editUserLogo",
+	auth,
 	validator.editUserLogo,
 	controller.editUserLogo
 );
 
 userRouter.get(
 	"/getUserData",
+	auth,
 	validator.getUserData,
 	controller.getUserData
 );
 
 userRouter.delete(
 	"/deleteUser",
+	auth,
 	validator.deleteUser,
 	controller.deleteUser
 );
