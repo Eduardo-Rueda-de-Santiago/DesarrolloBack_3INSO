@@ -25,6 +25,7 @@ userRouter.post(
 
 userRouter.patch(
 	"/validateEmail",
+	auth,
 	validator.validateEmail,
 	controller.validateEmail
 );

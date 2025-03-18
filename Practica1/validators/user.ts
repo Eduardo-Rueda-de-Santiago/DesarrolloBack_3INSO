@@ -32,17 +32,52 @@ export const loginUser = [
 
 export const recoverPassword = [
 
+	body("email")
+		.isEmail().withMessage("Se debe introducir un email")
+		.isLength({ max: 100 }).withMessage("El tamaño máximo del email son 100 caracteres."),
+
 	(req: any, res: any, next: any) => validateResults(req, res, next)
 
 ]
 
 export const validateEmail = [
 
+	body("code")
+		.exists().withMessage("Se debe el código de validación")
+		.notEmpty().isNumeric(),
+
 	(req: any, res: any, next: any) => validateResults(req, res, next)
 
 ]
 
 export const editUserCompany = [
+
+	body("name")
+		.isAlphanumeric()
+		.isLength({ max: 100 }).withMessage("El tamaño máximo son 100 caracteres."),
+
+
+	body("cif")
+		.isAlphanumeric()
+		.isLength({ max: 100 }).withMessage("El tamaño máximo son 100 caracteres."),
+
+	body("street")
+		.isAlphanumeric()
+		.isLength({ max: 100 }).withMessage("El tamaño máximo son 100 caracteres."),
+
+	body("number")
+		.isNumeric(),
+
+	body("postal")
+		.isNumeric(),
+
+	body("city")
+		.isAlphanumeric()
+		.isLength({ max: 100 }).withMessage("El tamaño máximo son 100 caracteres."),
+
+	body("province")
+		.isAlphanumeric()
+		.isLength({ max: 100 }).withMessage("El tamaño máximo son 100 caracteres."),
 
 	(req: any, res: any, next: any) => validateResults(req, res, next)
 
