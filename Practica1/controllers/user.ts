@@ -15,7 +15,6 @@ export async function registerUser(req: any, res: any) {
 
 	try {
 
-
 		const userService: UserService = new UserService();
 		const cypherService: CypherService = new CypherService();
 		const mailerService: MailerService = new MailerService();
@@ -123,6 +122,15 @@ async function checkAuthData(userData: UserBasicDataInterface): Promise<any> {
 	// Comprueba que el usuario existiese en el sistema.
 	if (!userAuthData) {
 		throw new Error("No existe un usuario con este email!")
+	}
+
+	
+	// Obtener el usuario.
+	const userValidationData = await userService.getUserValidationData(userAuthData._id);
+
+	// Comprueba que el usuario existiese en el sistema.
+	if (userValidationData.validationData?.validationDate === undefined) {
+		throw new Error("Se debe hacer la validación de email antes de acceder a la plataforma!")
 	}
 
 	// Comprueba que la contraseña sea correcta.

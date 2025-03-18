@@ -11,7 +11,7 @@ export default class MailerService {
 		this.transporter = nodemailer.createTransport({
 			host: "smtp.mailersend.net",
 			port: 587,
-			secure:false,
+			secure: false,
 			auth: {
 				user: process.env.SMPTP_USER,
 				pass: process.env.SMPTP_PASSWORD,
@@ -31,7 +31,7 @@ export default class MailerService {
 			subject: "Testing this works!",
 			text: `Your validation code is ${code}`,
 		})
-			.catch((error) => {
+			.catch(error => {
 				console.error(error)
 			})
 	}

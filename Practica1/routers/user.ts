@@ -16,5 +16,40 @@ userRouter.post(
 	controller.loginUser
 );
 
+userRouter.post(
+	"/recoverPassword",
+	validator.recoverPassword,
+	controller.recoverPassword
+);
+
+userRouter.patch(
+	"/validateEmail",
+	validator.validateEmail,
+	controller.validateEmail
+);
+
+userRouter.patch(
+	"/editUserCompany",
+	validator.editUserCompany,
+	controller.editUserCompany
+);
+
+userRouter.patch(
+	"/editUserLogo",
+	validator.editUserLogo,
+	controller.editUserLogo
+);
+
+userRouter.get(
+	"/getUserData",
+	validator.getUserData,
+	controller.getUserData
+);
+
+userRouter.delete(
+	"/deleteUser",
+	validator.deleteUser,
+	controller.deleteUser
+);
 
 export default userRouter;
