@@ -3,14 +3,23 @@ import * as controller from "../controllers/user";
 import * as validator from "../validators/user";
 import auth from "../middleware/auth";
 
+
+/**
+ * @swagger
+ * tags:
+ *   name: User
+ *   description: API endpoints for the users of the database.
+ */
 const userRouter: Router = Router();
 
+// Hecho!
 userRouter.post(
 	"/register",
 	validator.registerUser,
 	controller.registerUser
 );
 
+// Hecho!
 userRouter.post(
 	"/login",
 	validator.loginUser,
@@ -44,6 +53,7 @@ userRouter.patch(
 	controller.editUserLogo
 );
 
+// Hecho!
 userRouter.get(
 	"/getUserData",
 	auth,
@@ -51,6 +61,7 @@ userRouter.get(
 	controller.getUserData
 );
 
+// Hecho!
 userRouter.delete(
 	"/deleteUser",
 	auth,

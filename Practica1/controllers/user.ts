@@ -180,6 +180,7 @@ export async function validateEmail(req: any, res: any) {
 export async function editUserCompany(req: any, res: any) {
 	try {
 
+		// Obtener datos
 		res.status(501).send("Not yet implemented!");
 
 	} catch (error) {
@@ -196,6 +197,9 @@ export async function editUserCompany(req: any, res: any) {
 export async function editUserLogo(req: any, res: any) {
 	try {
 
+		// Obtener fichero
+		// Subir a pinata
+		// Actualizar el link en la bbdd
 		// Tiene que ir el logo a pinata?
 		res.status(501).send("Not yet implemented!");
 
