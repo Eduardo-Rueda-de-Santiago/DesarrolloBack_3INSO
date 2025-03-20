@@ -1,7 +1,8 @@
 import express from "express";
 import { router } from "./routes";
 import cors from 'cors';
-import dbConnect from "./mongo";
+import mongoDbConnect from "./mongo";
+import { dbConnectMySql } from "./mysql";
 
 /**
  * Crea el servidor con toda la configuración necesaria.
@@ -25,7 +26,9 @@ export function createServer(): any {
 		// Definir donde se ponen los ficheros estáticos
 		server.use(express.static("storage"));
 
-		dbConnect();
+		mongoDbConnect();
+
+		dbConnectMySql();
 
 		return server;
 
