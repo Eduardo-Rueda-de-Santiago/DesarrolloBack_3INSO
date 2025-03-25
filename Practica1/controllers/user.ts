@@ -5,6 +5,7 @@ import { UserBasicDataInterface, UserMongoInterface } from "../interfaces/user";
 import MailerService from "../services/mailer";
 import JsonWebTokenService from "../services/jsonWebToken";
 import { handleRequestError } from "../errors/requestError";
+import { uploadToPinata } from "../services/handleUploadIPFS";
 
 /**
  * Registra un usuario.
@@ -206,15 +207,24 @@ export async function editUserCompany(req: any, res: any) {
  * @param res 
  */
 export async function editUserLogo(req: any, res: any) {
+
 	try {
 
+		// Crea los servicios
+		const userService: UserService = new UserService();
+
+		// Extra los datos de la request.
+		const userId = req.user._id;
 		const logoBuffer = req.file.buffer
-		// const { logo } = req.files.logo;
-		// Obtener fichero
-		// Subir a pinata
-		// Actualizar el link en la bbdd
-		// Tiene que ir el logo a pinata?
-		res.status(501).send("Not yet implemented!");
+
+		// Sube el archivo a pinata
+		const fileName = `${userId}_logo_image_${Date.now()}`;
+		const logoPath: string = await uploadToPinata(logoBuffer, fileName);
+
+		// Actualiza el camino al logo en la base de datos.
+		const user: UserMongoInterface = await userService.updateUserById(userId, { logo: logoPath });
+
+		res.status(200).send(user);
 
 	} catch (error) {
 

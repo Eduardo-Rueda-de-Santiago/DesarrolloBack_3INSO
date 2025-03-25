@@ -163,30 +163,29 @@ export default class UserService {
 		}
 	}
 
-	// /**
-	//  * Updates the user with a given id, changing the given data.
-	//  * @param userId The Id of the user to update
-	//  * @param userData The data to update
-	//  * @returns The updated object of the user
-	//  */
-	// public async updateUserById(userId: string, userData: UserInterface): Promise<UserMongoInterface> {
+	/**
+	 * Updates the user with a given id, changing the given data.
+	 * @param userId The Id of the user to update
+	 * @param userData The data to update
+	 * @returns The updated object of the user
+	 */
+	public async updateUserById(userId: string, userData: UserFullDataInterface): Promise<UserMongoInterface> {
 
-	// 	try {
+		try {
 
-	// 		// Actualiza el usuario
-	// 		await UserModel.updateOne({ _id: userId }, userData);
+			// Actualiza el usuario
+			await UserModel.updateOne({ _id: userId }, userData);
 
-	// 		// Una vez actualizado lo vuelve a buscar para obtener los nuevos datos (mongoose no deveulve el objeto actualizado).
-	// 		return this.getUserById(userId);
+			// Una vez actualizado lo vuelve a buscar para obtener los nuevos datos (mongoose no deveulve el objeto actualizado).
+			return await this.getUserById(userId);
 
-	// 	} catch (error) {
+		} catch (error) {
 
-	// 		console.error(error)
-	// 		throw new Error("Error looking up user by id");
+			console.error(error)
+			throw new Error("Error looking up user by id");
 
-	// 	}
-	// }
-
+		}
+	}
 
 	/**
 	 * Attempts to validate the user with the validation code.
@@ -239,6 +238,11 @@ export default class UserService {
 			throw error;
 		}
 	}
+
+	/**
+	 * Reset the validation attemps of the user.
+	 * @param userId The id of the user to reset validations attemp.
+	 */
 	public resetValidationAttempts(userId: string): void {
 		try {
 
@@ -252,6 +256,7 @@ export default class UserService {
 			throw error;
 		}
 	}
+
 	/**
 	 * Deletes a user with the given ID.
 	 * @param userId User Id

@@ -1,4 +1,4 @@
-export default async function uploadToPinata(fileBuffer, fileName) {
+export async function uploadToPinata(fileBuffer, fileName) {
 	const url = `https://api.pinata.cloud/pinning/pinFileToIPFS`;
 	let data = new FormData();
 	const blob = new Blob([fileBuffer])
@@ -25,7 +25,8 @@ export default async function uploadToPinata(fileBuffer, fileName) {
 			throw new Error(`Error al subir el archivo: ${response.statusText}`);
 		}
 		const responseData = await response.json();
-		return responseData;
+		console.log(responseData)
+		return responseData.IpfsHash;
 	} catch (error) {
 		console.error('Error al subir el archivo a Pinata:', error);
 		throw error;

@@ -1,5 +1,5 @@
 @url = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTI4NzdjMTFjOGRlYjk3ZTAwNjE5YiIsImlhdCI6MTc0Mjg5OTA2OCwiZXhwIjoxNzQyOTAyNjY4fQ.Eo8A5Z5UCQG_RSZVyOClRn3CGJGzE8PT6YWPWxhgK0I
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTI4NzdjMTFjOGRlYjk3ZTAwNjE5YiIsImlhdCI6MTc0MjkwMzAzMywiZXhwIjoxNzQyOTA2NjMzfQ.pLt83oL_dgRnKp1ulb-wKiMOwGcAayGfFwVQK47Ivvk
 
 POST {{url}}/api/user/register
 Content-Type: application/json

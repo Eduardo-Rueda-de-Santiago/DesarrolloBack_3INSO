@@ -3,12 +3,12 @@ import MongodbObject from "./mongodbObject";
 import ValidationData from "./validation";
 
 export interface UserBasicDataInterface {
-	email: string,
-	password: string
+	email?: string,
+	password?: string
 }
 export interface UserFullDataInterface extends UserBasicDataInterface {
 
-	validationData: ValidationData
+	validationData?: ValidationData
 	name?: string,
 	surname?: string,
 	nif?: string,
