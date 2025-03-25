@@ -1,6 +1,7 @@
 import { Router } from "express";
 import * as controller from "../controllers/user";
 import * as validator from "../validators/user";
+import { uploadMiddlewareMemory } from "../services/storage";
 import auth from "../middleware/auth";
 
 
@@ -50,6 +51,7 @@ userRouter.patch(
 userRouter.patch(
 	"/editUserLogo",
 	auth,
+	uploadMiddlewareMemory.single("image"),
 	validator.editUserLogo,
 	controller.editUserLogo
 );

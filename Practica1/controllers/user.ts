@@ -208,7 +208,8 @@ export async function editUserCompany(req: any, res: any) {
 export async function editUserLogo(req: any, res: any) {
 	try {
 
-		console.log(req.files)
+		const logoBuffer = req.file.buffer
+		console.log(logoBuffer);
 		// const { logo } = req.files.logo;
 		// Obtener fichero
 		// Subir a pinata
