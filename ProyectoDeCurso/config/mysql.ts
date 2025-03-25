@@ -9,10 +9,10 @@ export const sequelize = new Sequelize({
 	dialect: "mysql",
 });
 export const dbConnectMySql = async () => {
-	try {
-		await sequelize.authenticate()
-		console.log("MySQL conexión correcta")
-	} catch (err) {
-		console.log("MySQL error de conexión:", err)
-	}
+	// try {
+	// 	await sequelize.authenticate()
+	// 	console.log("MySQL conexión correcta")
+	// } catch (err) {
+	// 	console.log("MySQL error de conexión:", err)
+	// }
 }

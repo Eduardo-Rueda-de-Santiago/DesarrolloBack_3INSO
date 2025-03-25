@@ -1,8 +1,7 @@
 import UserService from "../services/user";
 import CypherService from "../services/cypher";
 import { matchedData } from "express-validator";
-import { UserBasicDataInterface, UserFullDataInterface, UserMongoInterface } from "../interfaces/user";
-import generateValidationCode from "../services/validationCode";
+import { UserBasicDataInterface, UserMongoInterface } from "../interfaces/user";
 import MailerService from "../services/mailer";
 import JsonWebTokenService from "../services/jsonWebToken";
 import { handleRequestError } from "../errors/requestError";
@@ -209,6 +208,8 @@ export async function editUserCompany(req: any, res: any) {
 export async function editUserLogo(req: any, res: any) {
 	try {
 
+		console.log(req.files)
+		// const { logo } = req.files.logo;
 		// Obtener fichero
 		// Subir a pinata
 		// Actualizar el link en la bbdd

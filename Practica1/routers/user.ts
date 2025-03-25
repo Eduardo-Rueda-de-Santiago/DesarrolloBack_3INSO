@@ -32,6 +32,7 @@ userRouter.post(
 	controller.recoverPassword
 );
 
+// Hecho!
 userRouter.patch(
 	"/validateEmail",
 	auth,

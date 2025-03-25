@@ -1,5 +1,5 @@
 @url = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTI4MzdmOGE5YTJjODExMWI1NzMxYyIsImlhdCI6MTc0Mjg5ODA0NywiZXhwIjoxNzQyOTAxNjQ3fQ.YlZY8tVcAiDcWCu_oEc3ccWpwFxJd9rBn67yBF8oC5Q
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTI4NzdjMTFjOGRlYjk3ZTAwNjE5YiIsImlhdCI6MTc0Mjg5OTA2OCwiZXhwIjoxNzQyOTAyNjY4fQ.Eo8A5Z5UCQG_RSZVyOClRn3CGJGzE8PT6YWPWxhgK0I
 
 POST {{url}}/api/user/register
 Content-Type: application/json
@@ -16,7 +16,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "code": 849951
+    "code": 752840
 }
 
 ### 
@@ -28,6 +28,20 @@ Content-Type: application/json
     "email": "eduardoruedadesantiago@gmail.com",
 	"password":"12341234Abc$"
 }
+
+
+### 
+
+PATCH {{url}}/api/user/editUserLogo
+Authorization: Bearer {{token}}
+Content-Type: multipart/form-data; boundary=Boundary
+
+--Boundary
+Content-Disposition: form-data; name="image"; filename="img.jpg"
+Content-Type: image/jpg
+
+< ./img.jpg
+--Boundary--
 
 ### 
 
