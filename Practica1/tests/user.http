@@ -1,5 +1,5 @@
 @url = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZDk1NmQwYzZlZmFkZDUxMDAwMjdkNCIsImlhdCI6MTc0MjI5NjgxMSwiZXhwIjoxNzQyMzAwNDExfQ.0SuzON6i20cBW73N9RKMa7t4CgDBzxVEZLzZntvsd0Q
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTI3MzczMTNjMDA3YzBmY2I3ZThmYSIsImlhdCI6MTc0Mjg5MzkzOSwiZXhwIjoxNzQyODk3NTM5fQ.nqfqNIU0pWI_9e9VOz52mIlIzhmzf6s6xRrjgypwmlk
 
 POST {{url}}/api/user/register
 Content-Type: application/json
@@ -7,6 +7,15 @@ Content-Type: application/json
 {
     "email": "eduardoruedadesantiago@gmail.com",
 	"password":"12341234Abc$"
+}
+### 
+
+PATCH {{url}}/api/user/validateEmail
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "code": 486295
 }
 
 ### 

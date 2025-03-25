@@ -130,12 +130,12 @@ export default class UserService {
 	 * @param userId Id of the user
 	 * @returns The object of the user with the fields of email and validation data
 	 */
-	public async getUserValidationData(userId: string): Promise<UserMongoInterface> {
+	public async getUserValidationData(userId: string): Promise<any> {
 
 		try {
 
 			// Busca un usuario según su id. Adicionalmente, selecciona sus datos de validación de manera explicita.
-			return await UserModel.findById<UserMongoInterface>(userId).select("email +validationData");
+			return await UserModel.findById(userId).select("email +validationData");
 
 		} catch (error) {
 
@@ -170,6 +170,39 @@ export default class UserService {
 	// }
 
 
+	/**
+	 * Attempts to validate the user with the validation code.
+	 * @param validationCode The code to validate the user with.
+	 * @param userId The id of the user to validate.
+	 * @returns The validated user.
+	 */
+	public async attmeptuserValidation(validationCode: number, userId: string): Promise<UserMongoInterface> {
+		try {
+
+			const userValidationData = await this.getUserValidationData(userId);
+
+			userValidationData.set('validationData.validationAttempts', userValidationData.validationData.validationAttempts + 1);
+
+			if (userValidationData.validationData.validationCode === validationCode) {
+
+				userValidationData.set('validationData.validationDate', new Date());
+
+			} else {
+
+				userValidationData.save();
+				throw new Error("El código de validación no es correcto.");
+
+			}
+
+			await userValidationData.save();
+
+			return await this.getUserById(userId);
+
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	}
 	/**
 	 * Deletes a user with the given ID.
 	 * @param userId User Id

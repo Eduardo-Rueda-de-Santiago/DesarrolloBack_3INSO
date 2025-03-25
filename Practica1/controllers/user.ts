@@ -120,7 +120,6 @@ async function checkAuthData(userData: UserBasicDataInterface): Promise<any> {
 		throw new Error("No existe un usuario con este email!")
 	}
 
-
 	// Obtener el usuario.
 	const userValidationData = await userService.getUserValidationData(userAuthData._id);
 
@@ -164,11 +163,21 @@ export async function recoverPassword(req: any, res: any) {
 export async function validateEmail(req: any, res: any) {
 	try {
 
-		res.status(501).send("Not yet implemented!");
+		// Crea los servicios
+		const userService: UserService = new UserService();
+
+		// Extrae parámetros
+		const { code } = matchedData(req);
+		const userId = req.user._id.toString();
+
+		const user: UserMongoInterface = await userService.attmeptuserValidation(code, userId);
+
+		// Probar a introducir el código
+		res.status(200).send(user);
 
 	} catch (error) {
 		console.log(error);
-		res.status(500).send(error)
+		res.status(500).send(error.message)
 	}
 }
 
