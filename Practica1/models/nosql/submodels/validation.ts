@@ -8,12 +8,12 @@ const ValidationSubmodel =
 	},
 	validationAttempts: {
 		type: Schema.Types.Number,
-		select: false
+		select: false,
+		default: Number(process.env.EMAIL_VALIDATION_ATTEMPS || 3)
 	},
 	validationDate: {
 		type: Schema.Types.Date,
 	}
 };
-
 
 export default ValidationSubmodel;

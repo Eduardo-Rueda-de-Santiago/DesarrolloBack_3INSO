@@ -45,14 +45,14 @@ export async function registerUser(req: any, res: any) {
 		// Manda la respuesta
 		res.status(200).send({ userObject, token });
 
-		// Obten la validación del objeto
-		userService.getUserValidationData(userObject._id)
-			.then((userValidationData: UserMongoInterface) => {
-				mailerService.sendVerificationCodeEmail(userValidationData.email, userValidationData.validationData.validationCode);
-			})
-			.catch((error => {
+		// // Obten la validación del objeto
+		// userService.getUserValidationData(userObject._id)
+		// 	.then((userValidationData: UserMongoInterface) => {
+		// 		mailerService.sendVerificationCodeEmail(userValidationData.email, userValidationData.validationData.validationCode);
+		// 	})
+		// 	.catch((error => {
 
-			}))
+		// 	}))
 
 	} catch (error: any) {
 

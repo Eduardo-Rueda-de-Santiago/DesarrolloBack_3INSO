@@ -8,6 +8,7 @@ Content-Type: application/json
     "email": "eduardoruedadesantiago@gmail.com",
 	"password":"12341234Abc$"
 }
+
 ### 
 
 PATCH {{url}}/api/user/validateEmail
