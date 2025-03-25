@@ -1,7 +1,7 @@
-export default interface ValidationData{
-	
+export default interface ValidationData {
+
 	validationCode: number,
-	validationAttempts:number,
+	validationAttempts?: number,
 	validationDate?: Date,
 
 }

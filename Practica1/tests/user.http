@@ -1,5 +1,5 @@
 @url = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTI3MzczMTNjMDA3YzBmY2I3ZThmYSIsImlhdCI6MTc0Mjg5MzkzOSwiZXhwIjoxNzQyODk3NTM5fQ.nqfqNIU0pWI_9e9VOz52mIlIzhmzf6s6xRrjgypwmlk
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTI4MzdmOGE5YTJjODExMWI1NzMxYyIsImlhdCI6MTc0Mjg5ODA0NywiZXhwIjoxNzQyOTAxNjQ3fQ.YlZY8tVcAiDcWCu_oEc3ccWpwFxJd9rBn67yBF8oC5Q
 
 POST {{url}}/api/user/register
 Content-Type: application/json
@@ -16,7 +16,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "code": 486295
+    "code": 849951
 }
 
 ### 

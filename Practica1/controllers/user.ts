@@ -27,13 +27,9 @@ export async function registerUser(req: any, res: any) {
 		const hashedPassword: string = await cypherService.encryptString(password);
 
 		// Formatea los datos en una interfaz de datos de usuario.
-		const userData: UserFullDataInterface = {
+		const userData: UserBasicDataInterface = {
 			email: email,
 			password: hashedPassword,
-			validationData: {
-				validationCode: generateValidationCode(),
-				validationAttempts: 0
-			}
 		}
 
 		// Crea el objeto.
@@ -45,6 +41,7 @@ export async function registerUser(req: any, res: any) {
 		// Manda la respuesta
 		res.status(200).send({ userObject, token });
 
+		await userService.generateUserValidationCode(userObject._id);
 		userService.getUserValidationData(userObject._id).then((user: UserMongoInterface) => {
 			sendValidationEmail(user);
 		});
@@ -155,32 +152,35 @@ export async function recoverPassword(req: any, res: any) {
  */
 export async function validateEmail(req: any, res: any) {
 
+	// Crea los servicios
+	const userService: UserService = new UserService();
+	const userId = req.user._id.toString();
 
 	try {
-		// Crea los servicios
-		const userService: UserService = new UserService();
-		const userId = req.user._id.toString();
 
 		// Extrae parámetros
 		const { code } = matchedData(req);
 
 		const user: UserMongoInterface = await userService.attmeptUserValidation(code, userId);
 
-		if (! await userService.checkIfValidationAttemptsLeft(userId)) {
-			userService.getUserValidationData(userId).then((user: UserMongoInterface) => {
-				sendValidationEmail(user);
-			});
-			throw new Error("No validations attemps left! Validation email resent");
-		}
-
 		// Probar a introducir el código
 		res.status(200).send(user);
 
 	} catch (error) {
 
-		handleRequestError(res, 500, error);
+		let errorSent: Error = error;
 
+		if (!await userService.checkIfValidationAttemptsLeft(userId)) {
+			await userService.generateUserValidationCode(userId);
+			userService.getUserValidationData(userId).then((user: UserMongoInterface) => {
+				sendValidationEmail(user);
+			});
+			errorSent = new Error("No validations attemps left! Validation email resent");
+		}
+
+		handleRequestError(res, 401, errorSent);
 	}
+
 }
 
 /**

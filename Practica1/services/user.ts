@@ -1,5 +1,6 @@
-import { UserFullDataInterface, UserMongoInterface } from "../interfaces/user";
+import { UserBasicDataInterface, UserFullDataInterface, UserMongoInterface } from "../interfaces/user";
 import UserModel from "../models/nosql/user";
+import generateValidationCode from "./validationCode";
 
 /**
  * Servicio del usuario.
@@ -45,7 +46,7 @@ export default class UserService {
 	 * @param userData Datos del usuario que se quiere crear.
 	 * @returns El objeto del usaurio creado en la base de datos.
 	 */
-	public async createUser(userData: UserFullDataInterface): Promise<UserMongoInterface> {
+	public async createUser(userData: UserBasicDataInterface): Promise<UserMongoInterface> {
 
 		try {
 
@@ -81,6 +82,23 @@ export default class UserService {
 			console.error(error)
 			throw new Error("Error looking up user by id");
 
+		}
+	}
+
+	public async generateUserValidationCode(userId: string): Promise<UserMongoInterface> {
+		try {
+
+			const user = await this.getUserValidationData(userId);
+
+			user.set('validationData.validationCode', generateValidationCode());
+
+			await user.save();
+
+			return await this.getUserValidationData(userId);
+
+		} catch (error) {
+			console.error(error)
+			throw error;
 		}
 	}
 
@@ -181,7 +199,7 @@ export default class UserService {
 
 			const userValidationData = await this.getUserValidationData(userId);
 
-			userValidationData.set('validationData.validationAttempts', userValidationData.validationData.validationAttempts - 1);
+			userValidationData.set('validationData.validationAttempts', (userValidationData.validationData.validationAttempts - 1));
 
 			if (userValidationData.validationData.validationCode === validationCode) {
 
@@ -189,7 +207,7 @@ export default class UserService {
 
 			} else {
 
-				userValidationData.save();
+				await userValidationData.save();
 				throw new Error("El código de validación no es correcto.");
 
 			}
@@ -226,7 +244,7 @@ export default class UserService {
 
 			this.getUserValidationData(userId).then((user) => {
 				user.set('validationData.validationAttempts', Number(process.env.EMAIL_VALIDATION_ATTEMPS || 3));
-
+				user.save();
 			})
 
 		} catch (error) {
