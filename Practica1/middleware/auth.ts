@@ -1,3 +1,4 @@
+import { handleRequestError } from "../errors/requestError";
 import JsonWebTokenService from "../services/jsonWebToken";
 import UserService from "../services/user";
 
@@ -14,7 +15,7 @@ export default async function auth(req: any, res: any, next: any) {
 	try {
 
 		if (!req.header('Authorization')) {
-			throw new Error("No hay cabezera de autorización.");
+			throw new Error("No hay cabecera de autorización.");
 		}
 
 		const token = req.header('Authorization').split(" ").pop();
@@ -32,7 +33,7 @@ export default async function auth(req: any, res: any, next: any) {
 		const user = await userService.getUserById(decoded.id);
 
 		if (!user) {
-			return res.status(401).json({ error: 'The user doesn\'t exist!' });
+			throw new Error("The user doesn\'t exist!");
 		}
 
 		req.user = user;
@@ -41,9 +42,7 @@ export default async function auth(req: any, res: any, next: any) {
 
 	} catch (error) {
 
-		console.error(error);
-		return res.status(401).json({ error: error.message });
+		handleRequestError(res, 401, error);
 
 	}
-
 }

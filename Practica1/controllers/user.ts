@@ -5,6 +5,7 @@ import { UserBasicDataInterface, UserFullDataInterface, UserMongoInterface } fro
 import generateValidationCode from "../services/validationCode";
 import MailerService from "../services/mailer";
 import JsonWebTokenService from "../services/jsonWebToken";
+import { handleRequestError } from "../errors/requestError";
 
 /**
  * Registra un usuario.
@@ -45,16 +46,18 @@ export async function registerUser(req: any, res: any) {
 		// Manda la respuesta
 		res.status(200).send({ userObject, token });
 
-		// // Obten la validación del objeto
-		// userService.getUserValidationData(userObject._id)
-		// 	.then((userValidationData: UserMongoInterface) => {
-		// 		mailerService.sendVerificationCodeEmail(userValidationData.email, userValidationData.validationData.validationCode);
-		// 	})
-		// 	.catch((error => {
+		// Obten la validación del objeto
+		userService.getUserValidationData(userObject._id)
+			.then((userValidationData: UserMongoInterface) => {
+				mailerService.sendVerificationCodeEmail(userValidationData.email, userValidationData.validationData.validationCode);
+			})
+			.catch((error => {
 
-		// 	}))
+			}))
 
 	} catch (error: any) {
+
+		handleRequestError(res, 500, new Error("Error registering user."));
 
 	}
 
@@ -90,12 +93,7 @@ export async function loginUser(req: any, res: any) {
 
 	} catch (error: any) {
 
-		console.error(error);
-
-		return res.status(500).send({
-			alert: "The operation to log in failed!",
-			description: error.message
-		});
+		handleRequestError(res, 500, new Error("The operation to log in failed!"));
 
 	}
 
@@ -150,8 +148,9 @@ export async function recoverPassword(req: any, res: any) {
 		res.status(501).send("Not yet implemented!");
 
 	} catch (error) {
-		console.log(error);
-		res.status(500).send(error)
+
+		handleRequestError(res, 500, error);
+
 	}
 }
 
@@ -161,23 +160,26 @@ export async function recoverPassword(req: any, res: any) {
  * @param res 
  */
 export async function validateEmail(req: any, res: any) {
-	try {
 
-		// Crea los servicios
-		const userService: UserService = new UserService();
+	// Crea los servicios
+	const userService: UserService = new UserService();
+
+	const userId = req.user._id.toString();
+
+	try {
 
 		// Extrae parámetros
 		const { code } = matchedData(req);
-		const userId = req.user._id.toString();
 
-		const user: UserMongoInterface = await userService.attmeptuserValidation(code, userId);
+		const user: UserMongoInterface = await userService.attmeptUserValidation(code, userId);
 
 		// Probar a introducir el código
 		res.status(200).send(user);
 
 	} catch (error) {
-		console.log(error);
-		res.status(500).send(error.message)
+
+		handleRequestError(res, 500, error);
+
 	}
 }
 
@@ -193,8 +195,9 @@ export async function editUserCompany(req: any, res: any) {
 		res.status(501).send("Not yet implemented!");
 
 	} catch (error) {
-		console.log(error);
-		res.status(500).send(error)
+
+		handleRequestError(res, 500, error);
+
 	}
 }
 
@@ -213,8 +216,9 @@ export async function editUserLogo(req: any, res: any) {
 		res.status(501).send("Not yet implemented!");
 
 	} catch (error) {
-		console.log(error);
-		res.status(500).send(error)
+
+		handleRequestError(res, 500, error);
+
 	}
 }
 
@@ -229,8 +233,9 @@ export async function getUserData(req: any, res: any) {
 		res.status(200).send(req.user);
 
 	} catch (error) {
-		console.log(error);
-		res.status(500).send(error)
+
+		handleRequestError(res, 500, error);
+
 	}
 }
 
@@ -251,7 +256,8 @@ export async function deleteUser(req: any, res: any) {
 		res.status(200).send(user);
 
 	} catch (error) {
-		console.log(error);
-		res.status(500).send(error)
+
+		handleRequestError(res, 500, error);
+
 	}
 }

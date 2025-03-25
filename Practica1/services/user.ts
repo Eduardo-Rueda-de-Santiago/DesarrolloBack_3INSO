@@ -176,7 +176,7 @@ export default class UserService {
 	 * @param userId The id of the user to validate.
 	 * @returns The validated user.
 	 */
-	public async attmeptuserValidation(validationCode: number, userId: string): Promise<UserMongoInterface> {
+	public async attmeptUserValidation(validationCode: number, userId: string): Promise<UserMongoInterface> {
 		try {
 
 			const userValidationData = await this.getUserValidationData(userId);
@@ -203,6 +203,25 @@ export default class UserService {
 			throw error;
 		}
 	}
+
+	/**
+	 * Checks if there are validation attempts left.
+	 * @param userId The id of the user.
+	 * @returns Wether the user has any validations attempts left.
+	 */
+	public async checkIfValidationAttemptsLeft(userId: string): Promise<boolean> {
+		try {
+
+			const userValidationData = await this.getUserValidationData(userId);
+
+			return userValidationData.validationData.validationAttempts > 0;
+
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	}
+
 	/**
 	 * Deletes a user with the given ID.
 	 * @param userId User Id
