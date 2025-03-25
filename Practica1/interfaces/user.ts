@@ -14,6 +14,7 @@ export interface UserFullDataInterface extends UserBasicDataInterface {
 	nif?: string,
 	role?: string,
 	address?: AddressInterface,
+	logo: string,
 	company?: {
 		name: string,
 		cif: string,

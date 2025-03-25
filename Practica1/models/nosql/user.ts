@@ -52,6 +52,10 @@ const UserSchema = new Schema(
 				type: Schema.Types.Number,
 			},
 			address: AddressSubmodel,
+		},
+
+		logo: {
+			type: Schema.Types.String,
 		}
 
 	},
