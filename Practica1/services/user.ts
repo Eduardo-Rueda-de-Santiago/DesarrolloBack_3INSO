@@ -181,7 +181,7 @@ export default class UserService {
 
 			const userValidationData = await this.getUserValidationData(userId);
 
-			userValidationData.set('validationData.validationAttempts', userValidationData.validationData.validationAttempts + 1);
+			userValidationData.set('validationData.validationAttempts', userValidationData.validationData.validationAttempts - 1);
 
 			if (userValidationData.validationData.validationCode === validationCode) {
 
@@ -221,7 +221,19 @@ export default class UserService {
 			throw error;
 		}
 	}
+	public resetValidationAttempts(userId: string): void {
+		try {
 
+			this.getUserValidationData(userId).then((user) => {
+				user.set('validationData.validationAttempts', Number(process.env.EMAIL_VALIDATION_ATTEMPS || 3));
+
+			})
+
+		} catch (error) {
+			console.error(error);
+			throw error;
+		}
+	}
 	/**
 	 * Deletes a user with the given ID.
 	 * @param userId User Id

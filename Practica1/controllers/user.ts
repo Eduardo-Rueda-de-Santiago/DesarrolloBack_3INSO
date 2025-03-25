@@ -18,7 +18,6 @@ export async function registerUser(req: any, res: any) {
 
 		const userService: UserService = new UserService();
 		const cypherService: CypherService = new CypherService();
-		const mailerService: MailerService = new MailerService();
 		const jsonWebTokenService: JsonWebTokenService = new JsonWebTokenService();
 
 		// Extra los datos del cuerpo.
@@ -46,14 +45,9 @@ export async function registerUser(req: any, res: any) {
 		// Manda la respuesta
 		res.status(200).send({ userObject, token });
 
-		// Obten la validación del objeto
-		userService.getUserValidationData(userObject._id)
-			.then((userValidationData: UserMongoInterface) => {
-				mailerService.sendVerificationCodeEmail(userValidationData.email, userValidationData.validationData.validationCode);
-			})
-			.catch((error => {
-
-			}))
+		userService.getUserValidationData(userObject._id).then((user: UserMongoInterface) => {
+			sendValidationEmail(user);
+		});
 
 	} catch (error: any) {
 
@@ -161,17 +155,23 @@ export async function recoverPassword(req: any, res: any) {
  */
 export async function validateEmail(req: any, res: any) {
 
-	// Crea los servicios
-	const userService: UserService = new UserService();
-
-	const userId = req.user._id.toString();
 
 	try {
+		// Crea los servicios
+		const userService: UserService = new UserService();
+		const userId = req.user._id.toString();
 
 		// Extrae parámetros
 		const { code } = matchedData(req);
 
 		const user: UserMongoInterface = await userService.attmeptUserValidation(code, userId);
+
+		if (! await userService.checkIfValidationAttemptsLeft(userId)) {
+			userService.getUserValidationData(userId).then((user: UserMongoInterface) => {
+				sendValidationEmail(user);
+			});
+			throw new Error("No validations attemps left! Validation email resent");
+		}
 
 		// Probar a introducir el código
 		res.status(200).send(user);
@@ -259,5 +259,24 @@ export async function deleteUser(req: any, res: any) {
 
 		handleRequestError(res, 500, error);
 
+	}
+}
+
+/**
+ * Sends the validation email.
+ * @param userValidationData The user validation data.
+ */
+function sendValidationEmail(userValidationData: UserMongoInterface) {
+	try {
+		// Create services.
+		const mailerService: MailerService = new MailerService();
+		const userService: UserService = new UserService();
+
+		// Send stuff
+		userService.resetValidationAttempts(userValidationData._id.toString());
+		mailerService.sendVerificationCodeEmail(userValidationData.email, userValidationData.validationData.validationCode);
+
+	} catch (error) {
+		console.error(error)
 	}
 }
