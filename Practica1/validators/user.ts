@@ -44,7 +44,7 @@ export const validateEmail = [
 
 	body("code")
 		.exists().withMessage("Se debe el código de validación")
-		.notEmpty().isNumeric(),
+		.notEmpty().isNumeric().withMessage("Debe ser un número"),
 
 	(req: any, res: any, next: any) => validateResults(req, res, next)
 

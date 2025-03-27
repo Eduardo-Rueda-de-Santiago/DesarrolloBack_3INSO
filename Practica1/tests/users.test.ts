@@ -1,48 +1,54 @@
 import request from "supertest";
 import { server } from "../app";
+import UserService from "../services/user";
 
 describe('users', () => {
+
+	const userService = new UserService();
 
 	var token = ""
 	var id = ""
 
 	it('should register a user', async () => {
 		const response = await request(server)
-			.post('/api/auth/register')
-			.send({ "name": "Menganito", "age": 20, "email": "user25@test.com", "password": "HolaMundo.01" })
+			.post('/api/user/register')
+			.send({ "email": "user25@test.com", "password": "HolaMundo.01" })
 			.set('Accept', 'serverlication/json')
 			.expect(200)
-		expect(response.body.user.name).toEqual('Menganito')
-		expect(response.body.user.email).toEqual('user25@test.com')
-		expect(response.body.user.role).toEqual('user')
+		// expect(response.body.user.name).toEqual('Menganito')
+		expect(response.body.userObject.email).toEqual('user25@test.com')
+		// expect(response.body.userObject.role).toEqual('user')
 
 		token = response.body.token
-		id = response.body.user._id
-	})
-	/*
-		it('should get a Unauthorized error', async () => {
-			const response = await request(server)
-				.get('/api/auth/users')
-				.set('Accept', 'serverlication/json')
-				.expect(401)
-		});
-	*/
+		id = response.body.userObject._id
+	});
+
+	it('Should validate user', async () => {
+		const code = (await userService.getUserValidationData(id)).validationData.validationCode;
+		console.log("CODE", Number(code))
+		const response = await request(server)
+			.patch('/api/user/validateEmail')
+			.auth(token, { type: 'bearer' })
+			.send({ "code": Number(code) })
+			.set('Accept', 'serverlication/json')
+			.expect(200)
+	});
+
 	it('should get the users', async () => {
 		const response = await request(server)
-			.get('/api/auth/users')
+			.get('/api/user/getUserData')
 			.auth(token, { type: 'bearer' })
 			.set('Accept', 'serverlication/json')
 			.expect(200)
-		expect(response.body.pop().name).toEqual('Menganito')
+		expect(response.body.email).toEqual('user25@test.com')
 	});
 
 	it('should delete a user', async () => {
 		const response = await request(server)
-			.delete('/api/auth/users/' + id)
+			.delete('/api/user/deleteUser')
 			.auth(token, { type: 'bearer' })
 			.set('Accept', 'serverlication/json')
 			.expect(200)
-		expect(response.body.acknowledged).toEqual(true)
-	})
+	});
 
 })
