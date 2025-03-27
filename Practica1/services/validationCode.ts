@@ -1,4 +1,5 @@
 import { consecutiveUniqueRandom } from 'unique-random';
+
 /**
  * Generates a random six digits number
  */

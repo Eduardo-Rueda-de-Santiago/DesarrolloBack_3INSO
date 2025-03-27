@@ -1,38 +1,43 @@
 {
-  "name": "api",
-  "version": "1.0.0",
-  "description": "Api de la impresora de carnes",
-  "main": "app.ts",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch": "tsx watch ./app.ts",
-    "start": "tsx ./app.ts"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "bcrypt": "^5.1.1",
-    "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "express-validator": "^7.2.1",
-    "fs": "^0.0.1-security",
-    "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.12.1",
-    "mongoose-delete": "^1.0.2",
-    "multer": "^1.4.5-lts.2",
-    "nodemailer": "^6.10.0",
-    "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-dist": "^5.19.0",
-    "swagger-ui-express": "^5.0.1",
-    "unique-random": "^4.0.0"
-  },
-  "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/express": "^5.0.0",
-    "nodemon": "^3.1.9",
-    "tsx": "^4.19.2",
-    "typescript": "^5.7.3"
-  }
+	"name": "api",
+	"version": "1.0.0",
+	"description": "Api de la impresora de carnes",
+	"main": "app.ts",
+	"scripts": {
+		"test": "jest",
+		"watch": "tsx watch ./app.ts",
+		"start": "tsx ./app.ts"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"bcrypt": "^5.1.1",
+		"cors": "^2.8.5",
+		"dotenv": "^16.4.7",
+		"express": "^4.21.2",
+		"express-validator": "^7.2.1",
+		"fs": "^0.0.1-security",
+		"jsonwebtoken": "^9.0.2",
+		"mongoose": "^8.12.1",
+		"mongoose-delete": "^1.0.2",
+		"multer": "^1.4.5-lts.2",
+		"nodemailer": "^6.10.0",
+		"swagger-jsdoc": "^6.2.8",
+		"swagger-ui-dist": "^5.19.0",
+		"swagger-ui-express": "^5.0.1",
+		"unique-random": "^4.0.0"
+	},
+	"devDependencies": {
+		"@babel/preset-env": "^7.26.9",
+		"@babel/preset-typescript": "^7.27.0",
+		"@types/cors": "^2.8.17",
+		"@types/express": "^5.0.0",
+		"@types/jest": "^29.5.14",
+		"nodemon": "^3.1.9",
+		"supertest": "^7.1.0",
+		"ts-jest": "^29.3.0",
+		"tsx": "^4.19.2",
+		"typescript": "^5.7.3"
+	}
 }

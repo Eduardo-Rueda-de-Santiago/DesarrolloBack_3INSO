@@ -85,6 +85,11 @@ export default class UserService {
 		}
 	}
 
+	/**
+	 * Generates a new validation code and returns the validation data.
+	 * @param userId The id of the user.
+	 * @returns The user object with auth data.
+	 */
 	public async generateUserValidationCode(userId: string): Promise<UserMongoInterface> {
 		try {
 

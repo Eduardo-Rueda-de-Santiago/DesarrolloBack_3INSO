@@ -41,8 +41,7 @@ export async function registerUser(req: any, res: any) {
 		// Manda la respuesta
 		res.status(200).send({ userObject, token });
 
-		await userService.generateUserValidationCode(userObject._id);
-		userService.getUserValidationData(userObject._id).then((user: UserMongoInterface) => {
+		userService.generateUserValidationCode(userObject._id).then((user: UserMongoInterface) => {
 			sendValidationEmail(user);
 		});
 
@@ -130,8 +129,8 @@ async function checkAuthData(userData: UserBasicDataInterface): Promise<any> {
 
 /**
  * 
- * @param req 
- * @param res 
+ * @param req Request
+ * @param res Response
  */
 export async function recoverPassword(req: any, res: any) {
 	try {
@@ -146,9 +145,9 @@ export async function recoverPassword(req: any, res: any) {
 }
 
 /**
- * 
- * @param req 
- * @param res 
+ * Valida el email con el código de validación.
+ * @param req Request
+ * @param res Response
  */
 export async function validateEmail(req: any, res: any) {
 
@@ -171,8 +170,7 @@ export async function validateEmail(req: any, res: any) {
 		let errorSent: Error = error;
 
 		if (!await userService.checkIfValidationAttemptsLeft(userId)) {
-			await userService.generateUserValidationCode(userId);
-			userService.getUserValidationData(userId).then((user: UserMongoInterface) => {
+			userService.generateUserValidationCode(userId).then((user: UserMongoInterface) => {
 				sendValidationEmail(user);
 			});
 			errorSent = new Error("No validations attemps left! Validation email resent");
@@ -185,8 +183,8 @@ export async function validateEmail(req: any, res: any) {
 
 /**
  * 
- * @param req 
- * @param res 
+ * @param req Request
+ * @param res Response
  */
 export async function editUserCompany(req: any, res: any) {
 	try {
@@ -202,9 +200,9 @@ export async function editUserCompany(req: any, res: any) {
 }
 
 /**
- * 
- * @param req 
- * @param res 
+ * Cambia el logo del usuario.
+ * @param req Request
+ * @param res Response
  */
 export async function editUserLogo(req: any, res: any) {
 

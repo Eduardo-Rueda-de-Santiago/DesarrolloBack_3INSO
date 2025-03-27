@@ -23,3 +23,5 @@ const server = createServer();
 server.listen(port, () => {
 	console.log(`Server listening on: http://${url}:${port}`)
 });
+
+export { server };
