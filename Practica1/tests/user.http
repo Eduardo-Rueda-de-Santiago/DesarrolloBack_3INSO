@@ -37,7 +37,7 @@ Authorization: Bearer {{token}}
 Content-Type: multipart/form-data; boundary=Boundary
 
 --Boundary
-Content-Disposition: form-data; name="image"; filename="img.jpg"
+Content-Disposition: form-data; name="logo"; filename="img.jpg"
 Content-Type: image/jpg
 
 < ./img.jpg

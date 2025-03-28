@@ -213,18 +213,23 @@ export async function editUserLogo(req: any, res: any) {
 
 		// Extra los datos de la request.
 		const userId = req.user._id;
-		const logoBuffer = req.files;
+		const logoFile = req.files.logo;
 
-		console.log(logoBuffer)
+		if (logoFile === undefined) {
+			throw new Error("La imagen no se subió correctamente.");
+		}
 
-		// // Sube el archivo a pinata
-		// const fileName = `${userId}_logo_image_${Date.now()}`;
-		// const logoPath: string = await uploadToPinata(logoBuffer, fileName);
+		const buffer: Buffer = logoFile.data;
+		const extension: string = logoFile.name.split(".")[1];
 
-		// // Actualiza el camino al logo en la base de datos.
-		// const user: UserMongoInterface = await userService.updateUserById(userId, { logo: logoPath });
+		// Sube el archivo a pinata
+		const fileName = `${userId}_logo_image_${Date.now()}.${extension}`;
+		const logoPath: string = await uploadToPinata(buffer, fileName);
 
-		// res.status(200).send(user);
+		// Actualiza el camino al logo en la base de datos.
+		const user: UserMongoInterface = await userService.updateUserById(userId, { logo: logoPath });
+
+		res.status(200).send(user);
 
 	} catch (error) {
 
