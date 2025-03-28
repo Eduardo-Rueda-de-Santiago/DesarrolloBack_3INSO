@@ -51,7 +51,6 @@ userRouter.patch(
 userRouter.patch(
 	"/editUserLogo",
 	auth,
-	uploadMiddlewareMemory.single("image"),
 	validator.editUserLogo,
 	controller.editUserLogo
 );
