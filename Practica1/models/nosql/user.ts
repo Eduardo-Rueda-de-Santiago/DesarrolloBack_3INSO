@@ -46,10 +46,10 @@ const UserSchema = new Schema(
 
 		company: {
 			name: {
-				type: Schema.Types.Number,
+				type: Schema.Types.String,
 			},
 			cif: {
-				type: Schema.Types.Number,
+				type: Schema.Types.String,
 			},
 			address: AddressSubmodel,
 		},

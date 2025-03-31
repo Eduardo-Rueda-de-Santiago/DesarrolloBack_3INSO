@@ -3,7 +3,7 @@ import router from "./routes";
 import cors from 'cors';
 import mongooseConnect from "./mongo";
 import fileUpload from 'express-fileupload';
-import path from "node:path";
+
 /**
  * Crea el servidor con toda la configuración necesaria.
  * @returns Un objeto de servidor.

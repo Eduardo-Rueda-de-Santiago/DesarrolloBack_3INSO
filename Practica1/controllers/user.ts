@@ -1,7 +1,7 @@
 import UserService from "../services/user";
 import CypherService from "../services/cypher";
 import { matchedData } from "express-validator";
-import { UserBasicDataInterface, UserMongoInterface } from "../interfaces/user";
+import { UserBasicDataInterface, UserFullDataInterface, UserMongoInterface } from "../interfaces/user";
 import MailerService from "../services/mailer";
 import JsonWebTokenService from "../services/jsonWebToken";
 import { handleRequestError } from "../errors/requestError";
@@ -135,6 +135,7 @@ async function checkAuthData(userData: UserBasicDataInterface): Promise<any> {
 export async function recoverPassword(req: any, res: any) {
 	try {
 
+		// Obtener datos
 		res.status(501).send("Not yet implemented!");
 
 	} catch (error) {
@@ -189,8 +190,27 @@ export async function validateEmail(req: any, res: any) {
 export async function editUserCompany(req: any, res: any) {
 	try {
 
-		// Obtener datos
-		res.status(501).send("Not yet implemented!");
+		// Crea los servicios
+		const userService: UserService = new UserService();
+		const { name, cif, street, number, postal, city, province } = matchedData(req);
+
+		const userData: UserFullDataInterface = {
+			company: {
+				name: name,
+				cif: cif,
+				address: {
+					street: street,
+					number: number,
+					postal: postal,
+					city: city,
+					province: province
+				}
+			}
+		}
+
+		const user: UserFullDataInterface = await userService.updateUserById(req.user._id.toString(), userData);
+
+		res.status(200).send(user);
 
 	} catch (error) {
 

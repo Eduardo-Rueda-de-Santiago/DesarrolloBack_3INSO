@@ -16,9 +16,7 @@ const router = express.Router();
  * Asigna un subdominio del servidor a un router en concreto.
  */
 router.use('/api/user', userRouter);
-// router.use('/api/member', memberRouter);
-// router.use('/api/group', groupRouter);
-// router.use('/api/debug', debugRouter);
+
 
 /**
  * Devuelve la documentación swagger.

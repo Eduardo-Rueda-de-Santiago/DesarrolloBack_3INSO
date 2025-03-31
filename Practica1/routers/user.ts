@@ -40,6 +40,7 @@ userRouter.patch(
 	controller.validateEmail
 );
 
+// Hecho!
 userRouter.patch(
 	"/editUserCompany",
 	auth,
@@ -47,6 +48,7 @@ userRouter.patch(
 	controller.editUserCompany
 );
 
+// Hecho!
 userRouter.patch(
 	"/editUserLogo",
 	auth,

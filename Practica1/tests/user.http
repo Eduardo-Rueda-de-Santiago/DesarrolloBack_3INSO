@@ -1,5 +1,5 @@
 @url = http://localhost:3000
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTI4NzdjMTFjOGRlYjk3ZTAwNjE5YiIsImlhdCI6MTc0MzQ1MjY1NCwiZXhwIjoxNzQzNDU2MjU0fQ.sPVdm_WxjmrH0NnyFwIUOIL6XWafNVKzM-0LmXlIyy4
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZTI4NzdjMTFjOGRlYjk3ZTAwNjE5YiIsImlhdCI6MTc0MzQ1ODAzMCwiZXhwIjoxNzQzNDYxNjMwfQ.mxlV_zYuOn5ZzigNp7EhP8gyGFOdxr5K1DI9v6OtZak
 
 POST {{url}}/api/user/register
 Content-Type: application/json
@@ -29,7 +29,6 @@ Content-Type: application/json
 	"password":"12341234Abc$"
 }
 
-
 ### 
 
 PATCH {{url}}/api/user/editUserLogo
@@ -54,3 +53,19 @@ Authorization: Bearer {{token}}
 DELETE  {{url}}/api/user/deleteUser
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+### 
+
+PATCH {{url}}/api/user/editUserCompany
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "name": "Compania",
+	"cif":"123123123",
+	"street":"calle",
+	"number":123,
+	"postal":28290,
+	"city":"Madrid",
+	"province":"Madrid"
+}
