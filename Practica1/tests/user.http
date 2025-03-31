@@ -69,3 +69,17 @@ Authorization: Bearer {{token}}
 	"city":"Madrid",
 	"province":"Madrid"
 }
+
+
+### 
+
+PATCH {{url}}/api/user/editUserProfile
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+    "email": "pepe@gmail.com",
+	"name":"Pepe",
+	"surnames":"De la Fuente",
+	"nif":"21223"
+}

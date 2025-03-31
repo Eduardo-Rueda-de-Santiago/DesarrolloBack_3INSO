@@ -86,15 +86,14 @@ export const editUserCompany = [
 export const editUserProfile = [
 
 	body("email")
-		.isAlphanumeric()
-		.isLength({ max: 100 }).withMessage("El tamaño máximo son 100 caracteres."),
+		.isEmail().withMessage("Se debe introducir un email")
+		.isLength({ max: 100 }).withMessage("El tamaño máximo del email son 100 caracteres."),
 
 	body("name")
 		.isAlphanumeric()
 		.isLength({ max: 100 }).withMessage("El tamaño máximo son 100 caracteres."),
 
 	body("surnames")
-		.isAlphanumeric()
 		.isLength({ max: 100 }).withMessage("El tamaño máximo son 100 caracteres."),
 
 	body("nif")
