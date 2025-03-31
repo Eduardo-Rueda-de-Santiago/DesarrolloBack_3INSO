@@ -158,6 +158,39 @@ export async function recoverPassword(req: any, res: any) {
 	}
 }
 
+
+/**
+ * 
+ * @param req Request
+ * @param res Response
+ */
+export async function setNewPassword(req: any, res: any) {
+	try {
+
+		// Crea servicios
+		const userService: UserService = new UserService();
+
+		// Extra datos
+		const { email, password, code } = matchedData(req);
+
+		const user: UserMongoInterface = await userService.getUserByEmail(email);
+
+		const validationData: UserMongoInterface = await userService.generateUserValidationCode(user._id.toString());
+
+		if (validationData.validationData.resetPasswordCode !== code) {
+			throw new Error("Los códigos de recuperación de contraseña no coinciden.");
+		}
+
+		// Obtener datos
+		res.status(200).send("El cambio de contraseña se realizo correctamente!");
+
+	} catch (error) {
+
+		handleRequestError(res, 500, error);
+
+	}
+}
+
 /**
  * Valida el email con el código de validación.
  * @param req Request

@@ -45,7 +45,7 @@ export default class MailerService {
 		this.transporter.sendMail({
 			from: process.env.SMTP_FROM,
 			to: receiver,
-			subject: "Changign your password",
+			subject: "Changing your password",
 			text: `Your code to change password is ${code}`,
 		})
 			.catch(error => {

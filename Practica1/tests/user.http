@@ -29,6 +29,28 @@ Content-Type: application/json
 	"password":"12341234Abc$"
 }
 
+
+### 
+
+PATCH  {{url}}/api/user/setNewPassword
+Content-Type: application/json
+
+{
+    "email": "eduardoruedadesantiago@gmail.com",
+	"password":"12341234Abc$",
+    "code": 752840
+}
+
+
+### 
+
+POST {{url}}/api/user/recoverPassword
+Content-Type: application/json
+
+{
+    "email": "eduardoruedadesantiago@gmail.com"
+}
+
 ### 
 
 PATCH {{url}}/api/user/editUserLogo
@@ -78,7 +100,7 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-    "email": "pepe@gmail.com",
+    "email": "eduardoruedadesantiago@gmail.com",
 	"name":"Pepe",
 	"surnames":"De la Fuente",
 	"nif":"21223"

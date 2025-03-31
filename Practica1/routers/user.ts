@@ -33,6 +33,13 @@ userRouter.post(
 	controller.recoverPassword
 );
 
+// Hecho
+userRouter.patch(
+	"/setNewPassword",
+	validator.setNewPassword,
+	controller.setNewPassword
+);
+
 // Hecho!
 userRouter.patch(
 	"/validateEmail",
