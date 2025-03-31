@@ -19,7 +19,7 @@ export default function createServer(): any {
 	server.use(express.json());
 
 	// Añadir los ficheros estáticos
-	server.use("/static", express.static('assets'));
+	server.use(express.static('assets'));
 
 	// Permitir la subida de ficheros.
 	server.use(fileUpload({

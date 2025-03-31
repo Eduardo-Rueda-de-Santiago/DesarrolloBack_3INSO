@@ -1,6 +1,5 @@
 import path from 'node:path';
 import fs from "fs";
-import { buffer } from 'node:stream/consumers';
 
 /**
  * Saves the file
@@ -36,7 +35,7 @@ export async function readFile(filePath: string) {
 export async function deleteFile(filePath: string) {
 
 	try {
-		const fullFilePath = path.join(__dirname, "..", filePath);
+		const fullFilePath = path.join(__dirname, "..", "assets", filePath);
 		if (fs.existsSync(fullFilePath)) {
 			return fs.unlinkSync(fullFilePath);
 		}
@@ -57,8 +56,8 @@ function saveToLocal(fileBuffer: Buffer, fileName: string): string {
 
 	try {
 
-		const relativePath = path.join("assets", "uploads");
-		const fileDir = path.join(__dirname, "..", relativePath);
+		const relativePath = path.join("uploads");
+		const fileDir = path.join(__dirname, "..", "assets", relativePath);
 
 		if (!fs.existsSync(fileDir)) {
 			fs.mkdirSync(fileDir, { recursive: true });

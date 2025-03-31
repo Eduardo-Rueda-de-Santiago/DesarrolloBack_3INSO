@@ -61,7 +61,7 @@ Content-Type: multipart/form-data; boundary=Boundary
 Content-Disposition: form-data; name="logo"; filename="img.jpg"
 Content-Type: image/jpg
 
-< ./img.jpg
+< ./img2.jpg
 --Boundary--
 
 ### 
