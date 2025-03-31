@@ -13,7 +13,10 @@ const ValidationSubmodel =
 	},
 	validationDate: {
 		type: Schema.Types.Date,
-	}
+	},
+	resetPasswordCode: {
+		type: Schema.Types.String,
+	},
 };
 
 export default ValidationSubmodel;

@@ -1,6 +1,6 @@
 import { UserBasicDataInterface, UserFullDataInterface, UserMongoInterface } from "../interfaces/user";
 import UserModel from "../models/nosql/user";
-import generateValidationCode from "./validationCode";
+import { generateRandomNumber } from "./validationCode";
 
 /**
  * Servicio del usuario.
@@ -95,11 +95,34 @@ export default class UserService {
 
 			const user = await this.getUserValidationData(userId);
 
-			user.set('validationData.validationCode', generateValidationCode());
+			user.set('validationData.validationCode', generateRandomNumber());
 
 			await user.save();
 
-			return await this.getUserValidationData(userId);
+			return await this.getUserById(userId);
+
+		} catch (error) {
+			console.error(error)
+			throw error;
+		}
+	}
+
+
+	/**
+	 * Generates a new password change code
+	 * @param userId The id of the user.
+	 * @returns The user object with auth data.
+	 */
+	public async generatePasswordChangeCode(userId: string): Promise<UserMongoInterface> {
+		try {
+
+			const user = await this.getUserValidationData(userId);
+
+			user.set('validationData.validationCode', generateRandomNumber());
+
+			await user.save();
+
+			return await this.getUserById(userId);
 
 		} catch (error) {
 			console.error(error)

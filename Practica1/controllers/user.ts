@@ -134,6 +134,7 @@ async function checkAuthData(userData: UserBasicDataInterface): Promise<any> {
  */
 export async function recoverPassword(req: any, res: any) {
 	try {
+		const userService: UserService = new UserService();
 
 		// Obtener datos
 		res.status(501).send("Not yet implemented!");
