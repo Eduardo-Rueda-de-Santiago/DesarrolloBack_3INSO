@@ -1,6 +1,6 @@
 export default interface ValidationData {
 
-	validationCode: number,
+	validationCode?: number,
 	validationAttempts?: number,
 	validationDate?: Date,
 	resetPasswordCode?: number,

@@ -83,6 +83,7 @@ export async function loginUser(req: any, res: any) {
 
 	} catch (error: any) {
 
+		console.error(error);
 		handleRequestError(res, 500, new Error("The operation to log in failed!"));
 
 	}
@@ -169,17 +170,31 @@ export async function setNewPassword(req: any, res: any) {
 
 		// Crea servicios
 		const userService: UserService = new UserService();
+		const cypherService: CypherService = new CypherService();
 
 		// Extra datos
 		const { email, password, code } = matchedData(req);
 
 		const user: UserMongoInterface = await userService.getUserByEmail(email);
 
-		const validationData: UserMongoInterface = await userService.generateUserValidationCode(user._id.toString());
+		const validationData: UserMongoInterface = await userService.getUserValidationData(user._id.toString());
 
-		if (validationData.validationData.resetPasswordCode !== code) {
+		if (validationData.validationData.resetPasswordCode != code) {
 			throw new Error("Los códigos de recuperación de contraseña no coinciden.");
 		}
+
+		// Encripta la contraseña
+		const hashedPassword: string = await cypherService.encryptString(password);
+
+		userService.updateUserById(user._id.toString(), {
+			password: hashedPassword,
+			validationData: {
+				resetPasswordCode: null,
+				validationAttempts: validationData.validationData.validationAttempts,
+				validationCode: validationData.validationData.validationCode,
+				validationDate: validationData.validationData.validationDate
+			}
+		})
 
 		// Obtener datos
 		res.status(200).send("El cambio de contraseña se realizo correctamente!");

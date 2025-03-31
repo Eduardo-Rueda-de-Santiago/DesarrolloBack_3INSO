@@ -99,7 +99,7 @@ export default class UserService {
 
 			await user.save();
 
-			return await this.getUserById(userId);
+			return await this.getUserValidationData(userId);
 
 		} catch (error) {
 			console.error(error)
