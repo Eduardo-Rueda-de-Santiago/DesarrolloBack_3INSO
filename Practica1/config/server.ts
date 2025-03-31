@@ -20,8 +20,8 @@ export default function createServer(): any {
 
 	// Añadir los ficheros estáticos
 	server.use("/static", express.static('assets'));
-	// server.use("/assets", express.static(path.join(__dirname, "assets")));
 
+	// Permitir la subida de ficheros.
 	server.use(fileUpload({
 		limits: { fileSize: 50 * 1024 * 1024 },
 		safeFileNames: true,

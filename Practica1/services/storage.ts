@@ -22,6 +22,32 @@ export async function saveFile(fileBuffer: Buffer, fileName: string): Promise<st
 };
 
 /**
+ * 
+ * @param filePath Path to the file.
+ */
+export async function readFile(filePath: string) {
+
+};
+
+/**
+ * Deletes a file.
+ * @param filePath Path to the file.
+ */
+export async function deleteFile(filePath: string) {
+
+	try {
+		const fullFilePath = path.join(__dirname, "..", filePath);
+		if (fs.existsSync(fullFilePath)) {
+			return fs.unlinkSync(fullFilePath);
+		}
+	} catch (error) {
+		console.error(error);
+		throw error;
+	}
+}
+
+
+/**
  * Saves the to local 
  * @param fileBuffer The image buffer.
  * @param fileName The name
@@ -51,17 +77,6 @@ function saveToLocal(fileBuffer: Buffer, fileName: string): string {
 }
 
 
-/**
- * 
- * @param filePath Path to the file.
- */
-export async function readFile(filePath: string) {
-
-};
-
-export async function deleteFile(filePath: string) {
-
-}
 
 /**
  * Saves the file

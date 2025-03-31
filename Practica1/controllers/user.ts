@@ -5,7 +5,7 @@ import { UserBasicDataInterface, UserMongoInterface } from "../interfaces/user";
 import MailerService from "../services/mailer";
 import JsonWebTokenService from "../services/jsonWebToken";
 import { handleRequestError } from "../errors/requestError";
-import { saveFile } from "../services/storage";
+import { deleteFile, saveFile } from "../services/storage";
 
 /**
  * Registra un usuario.
@@ -212,7 +212,8 @@ export async function editUserLogo(req: any, res: any) {
 		const userService: UserService = new UserService();
 
 		// Extra los datos de la request.
-		const userId = req.user._id;
+		const reqUser: UserMongoInterface = req.user;
+		const userId = reqUser._id;
 		const logoFile = req.files.logo;
 
 		if (logoFile === undefined) {
@@ -225,6 +226,11 @@ export async function editUserLogo(req: any, res: any) {
 		// Sube el archivo a pinata
 		const fileName = `${userId}_logo_image_${Date.now()}.${extension}`;
 		const logoPath: string = await saveFile(buffer, fileName);
+
+		// Borra foto de perfil si existía antes
+		if (reqUser.logo) {
+			deleteFile(reqUser.logo);
+		}
 
 		// Actualiza el camino al logo en la base de datos.
 		const user: UserMongoInterface = await userService.updateUserById(userId, { logo: logoPath });
