@@ -42,6 +42,14 @@ userRouter.patch(
 
 // Hecho!
 userRouter.patch(
+	"/editUserProfile",
+	auth,
+	validator.editUserProfile,
+	controller.editUserProfile
+);
+
+// Hecho!
+userRouter.patch(
 	"/editUserCompany",
 	auth,
 	validator.editUserCompany,

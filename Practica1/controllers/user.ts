@@ -219,6 +219,37 @@ export async function editUserCompany(req: any, res: any) {
 	}
 }
 
+
+/**
+ * 
+ * @param req Request
+ * @param res Response
+ */
+export async function editUserProfile(req: any, res: any) {
+	try {
+
+		// Crea los servicios
+		const userService: UserService = new UserService();
+		const { email, name, surnames, nif } = matchedData(req);
+
+		const userData: UserFullDataInterface = {
+			email: email,
+			name: name,
+			surname: surnames,
+			nif: nif
+		}
+
+		const user: UserFullDataInterface = await userService.updateUserById(req.user._id.toString(), userData);
+
+		res.status(200).send(user);
+
+	} catch (error) {
+
+		handleRequestError(res, 500, error);
+
+	}
+}
+
 /**
  * Cambia el logo del usuario.
  * @param req Request
