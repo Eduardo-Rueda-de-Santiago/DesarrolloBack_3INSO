@@ -5,7 +5,7 @@ import { UserBasicDataInterface, UserMongoInterface } from "../interfaces/user";
 import MailerService from "../services/mailer";
 import JsonWebTokenService from "../services/jsonWebToken";
 import { handleRequestError } from "../errors/requestError";
-import { uploadToPinata } from "../services/handleUploadIPFS";
+import { saveFile } from "../services/storage";
 
 /**
  * Registra un usuario.

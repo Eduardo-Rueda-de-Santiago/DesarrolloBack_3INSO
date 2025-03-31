@@ -1,10 +1,10 @@
 /**
- * Uploads the file to pinata and retuns the path to it.
+ * Saves teh file
  * @param fileBuffer The image buffer.
  * @param fileName The name
- * @returns Path if the file in pinata.
+ * @returns Path for the filr
  */
-export async function uploadToPinata(fileBuffer: Buffer, fileName: string): Promise<string> {
+export async function saveFile(fileBuffer: Buffer, fileName: string): Promise<string> {
 
 	try {
 
@@ -35,6 +35,17 @@ export async function uploadToPinata(fileBuffer: Buffer, fileName: string): Prom
 	}
 };
 
+/**
+ * 
+ * @param filePath Path to the file.
+ */
+export async function readFile(filePath: string) {
+
+};
+
+export async function deleteFile(filePath: string) {
+
+}
 /**
  * Generates the package to upload to pinata.
  * @param fileBuffer Buffer of the file.
