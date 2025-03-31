@@ -118,11 +118,11 @@ export default class UserService {
 
 			const user = await this.getUserValidationData(userId);
 
-			user.set('validationData.validationCode', generateRandomNumber());
+			user.set('validationData.resetPasswordCode', generateRandomNumber());
 
 			await user.save();
 
-			return await this.getUserById(userId);
+			return await this.getUserValidationData(userId);
 
 		} catch (error) {
 			console.error(error)
@@ -130,25 +130,25 @@ export default class UserService {
 		}
 	}
 
-	// /**
-	//  * Get an user object from the database by email.
-	//  * @param email Email of the user
-	//  * @returns The object of the user
-	//  */
-	// public async getUserByEmail(email: string): Promise<UserMongoInterface> {
+	/**
+	 * Get an user object from the database by email.
+	 * @param email Email of the user
+	 * @returns The object of the user
+	 */
+	public async getUserByEmail(email: string): Promise<UserMongoInterface> {
 
-	// 	try {
+		try {
 
-	// 		// Busca un usuario según su email.
-	// 		return await UserModel.findOne<UserMongoInterface>({ email: email });
+			// Busca un usuario según su email.
+			return await UserModel.findOne<UserMongoInterface>({ email: email });
 
-	// 	} catch (error) {
+		} catch (error) {
 
-	// 		console.error(error)
-	// 		throw new Error("Error looking up user by email");
+			console.error(error)
+			throw new Error("Error looking up user by email");
 
-	// 	}
-	// }
+		}
+	}
 
 	/**
 	 * Get an user object auth data from the database by email.

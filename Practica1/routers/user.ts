@@ -26,6 +26,7 @@ userRouter.post(
 	controller.loginUser
 );
 
+// Hecho
 userRouter.post(
 	"/recoverPassword",
 	validator.recoverPassword,

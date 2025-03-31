@@ -134,10 +134,22 @@ async function checkAuthData(userData: UserBasicDataInterface): Promise<any> {
  */
 export async function recoverPassword(req: any, res: any) {
 	try {
+
+		// Crea servicios
 		const userService: UserService = new UserService();
+		const mailerService: MailerService = new MailerService();
+
+		// Extra datos
+		const { email } = matchedData(req);
+
+		const user: UserMongoInterface = await userService.getUserByEmail(email);
+
+		const validationData: UserMongoInterface = await userService.generatePasswordChangeCode(user._id.toString());
 
 		// Obtener datos
-		res.status(501).send("Not yet implemented!");
+		res.status(200).send("Email de cambio de contraseña enviado!");
+
+		mailerService.sendRecoverPasswordEmail(validationData.email, validationData.validationData.resetPasswordCode);
 
 	} catch (error) {
 
