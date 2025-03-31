@@ -1,10 +1,75 @@
+import path from 'node:path';
+import fs from "fs";
+import { buffer } from 'node:stream/consumers';
+
 /**
- * Saves teh file
+ * Saves the file
  * @param fileBuffer The image buffer.
  * @param fileName The name
- * @returns Path for the filr
+ * @returns Path for the file
  */
 export async function saveFile(fileBuffer: Buffer, fileName: string): Promise<string> {
+
+	try {
+
+		return saveToLocal(fileBuffer, fileName);
+
+	} catch (error) {
+		console.error('Error al salvar el fichero:', error);
+		throw error;
+	}
+
+};
+
+/**
+ * Saves the to local 
+ * @param fileBuffer The image buffer.
+ * @param fileName The name
+ * @returns Path for the file
+ */
+function saveToLocal(fileBuffer: Buffer, fileName: string): string {
+
+	try {
+
+		const relativePath = path.join("assets", "uploads");
+		const fileDir = path.join(__dirname, "..", relativePath);
+
+		if (!fs.existsSync(fileDir)) {
+			fs.mkdirSync(fileDir, { recursive: true });
+		}
+
+		const filePath = path.join(fileDir, fileName);
+
+		fs.writeFileSync(filePath, fileBuffer);
+
+		return path.join(relativePath, fileName);
+
+	} catch (error) {
+		console.error('Error al salvar el fichero a local:', error);
+		throw error;
+	}
+}
+
+
+/**
+ * 
+ * @param filePath Path to the file.
+ */
+export async function readFile(filePath: string) {
+
+};
+
+export async function deleteFile(filePath: string) {
+
+}
+
+/**
+ * Saves the file
+ * @param fileBuffer The image buffer.
+ * @param fileName The name
+ * @returns Path for the file
+ */
+async function saveToPinata(fileBuffer: Buffer, fileName: string): Promise<string> {
 
 	try {
 
@@ -33,19 +98,8 @@ export async function saveFile(fileBuffer: Buffer, fileName: string): Promise<st
 		console.error('Error al subir el archivo a Pinata:', error);
 		throw error;
 	}
-};
-
-/**
- * 
- * @param filePath Path to the file.
- */
-export async function readFile(filePath: string) {
-
-};
-
-export async function deleteFile(filePath: string) {
-
 }
+
 /**
  * Generates the package to upload to pinata.
  * @param fileBuffer Buffer of the file.

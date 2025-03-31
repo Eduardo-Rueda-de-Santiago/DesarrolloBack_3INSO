@@ -224,7 +224,7 @@ export async function editUserLogo(req: any, res: any) {
 
 		// Sube el archivo a pinata
 		const fileName = `${userId}_logo_image_${Date.now()}.${extension}`;
-		const logoPath: string = await uploadToPinata(buffer, fileName);
+		const logoPath: string = await saveFile(buffer, fileName);
 
 		// Actualiza el camino al logo en la base de datos.
 		const user: UserMongoInterface = await userService.updateUserById(userId, { logo: logoPath });

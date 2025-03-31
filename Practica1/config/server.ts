@@ -3,6 +3,7 @@ import router from "./routes";
 import cors from 'cors';
 import mongooseConnect from "./mongo";
 import fileUpload from 'express-fileupload';
+import path from "node:path";
 /**
  * Crea el servidor con toda la configuración necesaria.
  * @returns Un objeto de servidor.
@@ -18,7 +19,8 @@ export default function createServer(): any {
 	server.use(express.json());
 
 	// Añadir los ficheros estáticos
-	server.use(express.static('assets'));
+	server.use("/static", express.static('assets'));
+	// server.use("/assets", express.static(path.join(__dirname, "assets")));
 
 	server.use(fileUpload({
 		limits: { fileSize: 50 * 1024 * 1024 },
